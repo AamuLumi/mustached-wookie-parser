@@ -19,37 +19,44 @@
         <directive>#define CONSTANT 1</directive>
         <br>
         <br>
+        <comment>// This is a comment</comment>
+        <br>
         <type>int</type>
-        <function>myFunction</function>
+        <identifier>myFunction</identifier>
         <symbol>(</symbol>
-        <type>int</type> <var>var1</var>
+        <type>int</type>
+        <identifier>var1</identifier>
         <symbol>,</symbol>
         <type>char</type>
-        <symbol>*</symbol> <var>var2</var>
+        <symbol>*</symbol>
+        <identifier>var2</identifier>
         <symbol>)</symbol>
         <symbol>{</symbol>
         <br>
         <div class="function">
             <keyword>if</keyword>
-            <symbol>(</symbol><var>var1</var>
-            <symbol>==</symbol> <var>CONSTANT</var>
+            <symbol>(</symbol>
+            <identifier>var1</identifier>
+            <symbol>==</symbol>
+            <identifier>CONSTANT</identifier>
             <symbol>)</symbol>
             <br>
             <div class="condition">
                 <keyword>return</keyword>
-                <constant>2</constant>
+                <value>2</value>
                 <symbol>;</symbol>
                 <br>
             </div>
             <keyword>else if</keyword>
-            <symbol>(</symbol><var>var2</var>
+            <symbol>(</symbol>
+            <identifier>var2</identifier>
             <symbol>==</symbol>
             <null>NULL</null>
             <symbol>)</symbol>
             <br>
             <div class="condition">
                 <keyword>return</keyword>
-                <constant>0</constant>
+                <value>0</value>
                 <symbol>;</symbol>
                 <br>
             </div>
@@ -57,7 +64,7 @@
             <br>
             <div class="condition">
                 <keyword>return</keyword>
-                <constant>1</constant>
+                <value>1</value>
                 <symbol>;</symbol>
                 <br>
             </div>
@@ -66,23 +73,25 @@
         <br>
         <br>
         <type>int</type>
-        <function>main</function>
+        <identifier>main</identifier>
         <symbol>(</symbol>
-        <type>int</type> <var>argc</var>
+        <type>int</type>
+        <identifier>argc</identifier>
         <symbol>,</symbol>
         <type>char</type>
-        <symbol>*</symbol> <var>argv</var>
+        <symbol>*</symbol>
+        <identifier>argv</identifier>
         <symbol>){</symbol>
         <br>
         <div class="function">
-            <function>myFunction</function>
+            <identifier>myFunction</identifier>
             <symbol>(</symbol>2
             <symbol>,</symbol>
             <null>NULL</null>
             <symbol>);</symbol>
             <br>
             <keyword>return</keyword>
-            <constant>0</constant>
+            <value>0</value>
             <symbol>;</symbol>
             <br>
         </div>

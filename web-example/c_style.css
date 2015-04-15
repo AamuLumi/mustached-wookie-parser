@@ -18,18 +18,19 @@
 .code-style null {
   color: #7d0045;
 }
-.code-style constant {
+.code-style value {
   color: #008c00;
 }
-.code-style function {
-  cursor: pointer;
-}
-.code-style var {
+.code-style identifier {
   cursor: pointer;
 }
 .code-style keyword {
   color: #800000;
   font-weight: bold;
+}
+.code-style comment {
+  color: #800000;
+  font-style: italic;
 }
 .code-style .function {
   margin-left: 15px;

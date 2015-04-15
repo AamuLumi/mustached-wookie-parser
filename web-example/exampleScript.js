@@ -1,67 +1,34 @@
-var colorHoverFunction = "yellow";
-var colorHoverVariable = "yellow";
-var colorHighlightFunction = "#97D17A";
-var colorHighlightVariable = "#FFCE74";
+var colorHoverIdentifier = "yellow";
+var colorHighlightIdentifier = "#97D17A";
 
-var highlightedFunction = undefined;
-var highlightedVariable = undefined;
+var highlightedIdentifier = undefined;
 
-function resetVariableHighlight() {
-    $(".code-style var").each(function (i) {
+function resetHighlightIdentifier() {
+    $(".code-style identifier").each(function (i) {
         $(this).css("background", "none");
     });
 }
 
-function resetFunctionHighlight() {
-    $(".code-style function").each(function (i) {
-        $(this).css("background", "none");
-    });
-}
-
-function highlightFunctions(elementText) {
-    resetFunctionHighlight();
+function highlightIdentifiers(elementText) {
+    resetHighlightIdentifier();
     
-    highlightedFunction = elementText;
+    highlightedIdentifier = elementText;
     
-    $(".code-style function").each(function (i) {
+    $(".code-style identifier").each(function (i) {
         if ($(this).text() === elementText)
-            $(this).css("background", colorHighlightFunction);
+            $(this).css("background", colorHighlightIdentifier);
     });
 }
 
-function highlightVariables(elementText) {
-    resetVariableHighlight();
-    
-    highlightedVariable = elementText;
-    
-    $(".code-style var").each(function (i) {
-        if ($(this).text() === elementText)
-            $(this).css("background", colorHighlightVariable);
-    });
-}
-
-$(".code-style function").click(function () {
-    highlightFunctions($(this).text());
+$(".code-style identifier").click(function () {
+    highlightIdentifiers($(this).text());
 });
 
-$(".code-style function").hover(function () {
-    $(this).css("background", colorHoverFunction);
+$(".code-style identifier").hover(function () {
+    $(this).css("background", colorHoverIdentifier);
 }, function(){
-    if ($(this).text() === highlightedFunction)
-        $(this).css("background", colorHighlightFunction);
-    else
-        $(this).css("background", "none");
-});
-
-$(".code-style var").click(function () {
-    highlightVariables($(this).text());
-});
-
-$(".code-style var").hover(function () {
-    $(this).css("background", colorHoverVariable);
-}, function(){
-    if ($(this).text() === highlightedVariable)
-        $(this).css("background", colorHighlightVariable);
+    if ($(this).text() === highlightedIdentifier)
+        $(this).css("background", colorHighlightIdentifier);
     else
         $(this).css("background", "none");
 });
