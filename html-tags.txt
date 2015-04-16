@@ -1,0 +1,51 @@
+### All code must be write between these tags :
+    <div class="code-style">code here</div>
+
+### Basic tags :
+
++ <directive>#preprocessingdirective arguments </directive>
+    + Ex : <directive>#include &lt;stdio.h&gt;</directive>
+    + If possible : <directive>#include</directive> <include_value>&lt;stdio.h&gt;</include_value>
+        and       : <directive>#define</directive> <identifier>CONSTANT</identifier> <value>1</value>
+
++ <comment>// A comment</comment>
++ <comment>/* Multilines 
+              comments */<comment>
+              
++ <type>int</type>
++ etc.
+
++ <identifier>myFunction</identifier>
++ <identifier>myVariable</identifier>
+
++ <keyword>if</keyword>
++ <keyword>for</keyword>
++ etc.
+
++ <value>42</value>
++ <value>64</value>
++ etc.
+
++ <string>"this is a string"</string> OR <value>"this is a string"</value>
++ <string>"another string"</string>
++ etc.
+
++ All \n replaced by <br>
+
+### Special tags :
+
+## In function or condition or etc., use <div class="bloc">the bloc to indent</div> to add indentation to a bloc. (Possibility : use { and } symbol to place theses tags)
+
+Ex : 
+if(a==b) {
+<div class="bloc">
+    return 42;
+</div>
+}
+
+## In declaration of function or variable, use <identifier class="declaration">. (Possibility : use grammar analyze to detect it)
+
+Ex : int <identifier class="declaration">myFunction</identifier>(int a){
+        char <identifier class="declaration">myVariable</identifier>;
+
+## Dedicated comments : /** .. */ Recognize it. There's lot of functionalities to implement with it.
