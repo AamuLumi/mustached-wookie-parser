@@ -1,3 +1,21 @@
+### Syntax of a file : 
+
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="c_style.css">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <script src="jquery-1.11.2.min.js"></script>
+    <title>Code Example</title>
+</head>
+
+<body>
+    Your code go between : <div class="code-style">code here</div>
+    <script src="exampleScript.js"></script>
+</body>
+
+</html>
+
 ### All code must be write between these tags :
     <div class="code-style">code here</div>
 
@@ -31,6 +49,8 @@
 + etc.
 
 + All \n replaced by <br>
++ All < replaced by &lt;
++ All > replaced by &gt;
 
 ### Special tags :
 
@@ -48,4 +68,4 @@ if(a==b) {
 Ex : int <identifier class="declaration">myFunction</identifier>(int a){
         char <identifier class="declaration">myVariable</identifier>;
 
-## Dedicated comments : /** .. */ Recognize it. There's lot of functionalities to implement with it.
+## Dedicated comments : /** .. */ Recognize it. There's lot of functionalities to implement with it. 
