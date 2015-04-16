@@ -25,7 +25,7 @@ WS  [ \t\v\n\f]
 #include <stdio.h>
 #include "c-grammar.tab.h"
 
-extern void yyerror(const char *);  /* prints grammar violation message */
+extern int yyerror(const char *);  /* prints grammar violation message */
 
 extern int sym_type(const char *);  /* returns type from symbol table */
 
@@ -33,12 +33,14 @@ extern int sym_type(const char *);  /* returns type from symbol table */
 
 static void comment(void);
 static int check_type(void);
+static void analyzeDirective(void);
     
 extern FILE* yyin;
 extern FILE* yyout;
 %}
 
 %%
+"#".*                   { analyzeDirective();}
 "/*"                                    { comment(); }
 "//".*                                    {  fprintf(yyout, "%s", "<comment>// yytext</comment>");}
 
@@ -159,6 +161,10 @@ extern FILE* yyout;
 int yywrap(void)        /* called at end of input */
 {
     return 1;           /* terminate now */
+}
+
+void analyzeDirective(void){
+
 }
 
 static void comment(void)
