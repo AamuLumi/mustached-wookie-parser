@@ -32,9 +32,12 @@
   color: #800000;
   font-style: italic;
 }
-.code-style .function {
-  margin-left: 15px;
+.code-style .bloc {
+  margin-left: 30px;
 }
-.code-style .condition {
-  margin-left: 15px;
+.code-style .code-expander {
+  cursor: pointer;
+  vertical-align: text-top;
+  width: 17px;
+  height: 17px;
 }

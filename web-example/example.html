@@ -16,86 +16,76 @@
         <include_value>&lt;stdlib.h&gt;</include_value>
         <br>
         <br>
-        <directive>#define CONSTANT 1</directive>
+        <directive>#define</directive>
+        <identifier>CONSTANT</identifier>
+        <value>1</value>
         <br>
         <br>
         <comment>// This is a comment</comment>
         <br>
+        <img class="code-expander" src="img/collapse.png">
         <type>int</type>
-        <identifier>myFunction</identifier>
-        <symbol>(</symbol>
+        <identifier>myFunction</identifier>(
         <type>int</type>
-        <identifier>var1</identifier>
-        <symbol>,</symbol>
-        <type>char</type>
-        <symbol>*</symbol>
-        <identifier>var2</identifier>
-        <symbol>)</symbol>
-        <symbol>{</symbol>
+        <identifier>var1</identifier>,
+        <type>char</type>*
+        <identifier>var2</identifier>) {
         <br>
-        <div class="function">
-            <keyword>if</keyword>
-            <symbol>(</symbol>
-            <identifier>var1</identifier>
-            <symbol>==</symbol>
-            <identifier>CONSTANT</identifier>
-            <symbol>)</symbol>
+        <div class="bloc">
+            <img class="code-expander" src="img/collapse.png">
+            <keyword>if</keyword>(
+            <identifier>var1</identifier> ==
+            <identifier>CONSTANT</identifier>)
             <br>
-            <div class="condition">
+            <div class="bloc">
                 <keyword>return</keyword>
-                <value>2</value>
-                <symbol>;</symbol>
+                <value>2</value>;
                 <br>
             </div>
-            <keyword>else if</keyword>
-            <symbol>(</symbol>
-            <identifier>var2</identifier>
-            <symbol>==</symbol>
-            <null>NULL</null>
-            <symbol>)</symbol>
+            <img class="code-expander" src="img/collapse.png">
+            <keyword>else if</keyword>(
+            <identifier>var2</identifier> ==
+            <null>NULL</null>)
             <br>
-            <div class="condition">
+            <div class="bloc">
+
                 <keyword>return</keyword>
-                <value>0</value>
-                <symbol>;</symbol>
+                <value>0</value>;
                 <br>
             </div>
-            <keyword>else</keyword>
+            <img class="code-expander" src="img/collapse.png"><keyword>else</keyword>
             <br>
-            <div class="condition">
+            <div class="bloc">
                 <keyword>return</keyword>
-                <value>1</value>
-                <symbol>;</symbol>
+                <value>1</value>;
                 <br>
             </div>
         </div>
-        <symbol>}</symbol>
+        }
         <br>
         <br>
+        <br>
+        <comment>/* This is a
+            <br> bloc comment */</comment>
+        <br>
+        <img class="code-expander" src="img/collapse.png">
         <type>int</type>
-        <identifier>main</identifier>
-        <symbol>(</symbol>
+        <identifier>main</identifier>(
         <type>int</type>
-        <identifier>argc</identifier>
-        <symbol>,</symbol>
-        <type>char</type>
-        <symbol>*</symbol>
-        <identifier>argv</identifier>
-        <symbol>){</symbol>
+        <identifier>argc</identifier>,
+        <type>char</type>*
+        <identifier>argv</identifier>){
         <br>
-        <div class="function">
-            <identifier>myFunction</identifier>
-            <symbol>(</symbol>2
-            <symbol>,</symbol>
-            <null>NULL</null>
-            <symbol>);</symbol>
+        <div class="bloc">
+            <identifier>myFunction</identifier>(
+            <value>2</value>,
+            <value>NULL</value>);
             <br>
             <keyword>return</keyword>
-            <value>0</value>
-            <symbol>;</symbol>
+            <value>0</value>;
             <br>
         </div>
-        <symbol>}</symbol>
+        }
         <br>
     </div>
     <script src="exampleScript.js"></script>

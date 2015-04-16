@@ -54,9 +54,11 @@
 
 ### Special tags :
 
-## In function or condition or etc., use <div class="bloc">the bloc to indent</div> to add indentation to a bloc. (Possibility : use { and } symbol to place theses tags)
+## In function or condition or etc., use <div class="bloc">the bloc to indent</div> to add indentation to a bloc. (Possibility : use { and } symbol to place theses tags) (add the img at the beginning of the line before the bracket)
 
 Ex : 
+
+<img class="code-expander" src="img/collapse.png">
 if(a==b) {
 <div class="bloc">
     return 42;
