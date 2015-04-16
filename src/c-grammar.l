@@ -33,6 +33,9 @@ extern int sym_type(const char *);  /* returns type from symbol table */
 
 static void comment(void);
 static int check_type(void);
+    
+extern FILE* yyin;
+extern FILE* yyout;
 %}
 
 %%
@@ -188,4 +191,25 @@ static int check_type(void)
     default:                          /* includes undefined */
         return IDENTIFIER;
     }
+}
+
+int main(int argc, char* argv[]){
+    if (argc < 3){
+        fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate.html");
+        return -1;
+    }
+    
+    yyin = fopen(argv[1], "r");
+    yyout = fopen(argv[2], "w");
+    
+    // createHTMLBeginFile();
+    
+    yyparse();
+    
+    // createHTMLEndFile();
+    
+    fclose(yyin);
+    fclose(yyout);
+    
+    return 0;
 }
