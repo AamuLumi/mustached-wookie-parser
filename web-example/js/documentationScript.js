@@ -22,20 +22,42 @@ function highlightIdentifiers(elementText) {
     });
 }
 
-function getLineNumbers(){
-    var i = 1;
-    
-    $(".code-style br").each(function(){
-        i++;
+function numberOfBr(tag) {
+    return tag.find('br').length;
+}
+
+function addLineNumbers(element) {
+    var line = 1;
+    var endArray = [];
+
+    $(".code-style *").each(function () {
+        if ($(this).get(0).tagName === "BR") {
+            console.log(endArray);
+            for (var i = 0; i < endArray.length; i++) {
+                if (endArray[i] == line) {
+                    endArray.splice(i, 1);
+                    element = element.parent();
+                    i -=1;
+                }
+            }
+
+            element.append(line + "<br>");
+            line++;
+        } else if ($(this).attr('class') === "bloc") {
+            var el = $("<bloc>").data("beginning", $(this).data("beginning")).appendTo(element);
+            endArray.push($(this).data("end"));
+            
+            console.log($(this).data("end"));
+
+            element = el;
+        }
     });
-    
-    return i;
 }
 
 
 // DECLARATION
 
-$(".declaration").each(function(i, v){
+$(".declaration").each(function (i, v) {
     $(this).parent('declaration').data('identifier', $(this).text());
 });
 
@@ -51,26 +73,26 @@ $(".code-style identifier").hover(function () {
     $(this).css("background", colorHoverIdentifier);
 
     // Add Tooltip to identifier
-    if ($(this).data('tipText') == undefined){
+    if ($(this).data('tipText') == undefined) {
         // Search declaration if not defined
         var identifierToFind = $(this).text();
         var declaration;
-        
-        $("declaration").each(function(i, v){
-            if ($(this).data('identifier') == identifierToFind){
+
+        $("declaration").each(function (i, v) {
+            if ($(this).data('identifier') == identifierToFind) {
                 declaration = $(this).text();
                 return false;
             }
         });
-        
+
         if (declaration == undefined)
             $(this).data('tipText', "Not found");
-        else 
+        else
             $(this).data('tipText', declaration);
     }
-    
+
     var title = $(this).data('tipText');
-    
+
     $('<p class="identifierTooltip"></p>').text(title).appendTo("body").fadeIn("slow");
 }, function () {
     // Reinit background color
@@ -94,6 +116,18 @@ $(".code-style identifier").hover(function () {
 
 // CODE EXPANDER
 
+$(".code-style *").each(function () {
+    if ($(this).get(0).tagName === "BR")
+        lineNumber++;
+    if ($(this).attr("class") === "bloc") {
+        var endLineOfBloc = lineNumber + numberOfBr($(this));
+
+        $(this).data('beginning', lineNumber);
+        $(this).data('end', endLineOfBloc);
+    }
+
+});
+
 $(".code-expander").click(function () {
     var bloc = $(this);
 
@@ -104,17 +138,25 @@ $(".code-expander").click(function () {
     if ($(this).attr('src') == 'img/collapse.png') {
         $(this).attr('src', 'img/expand.png');
         bloc.slideUp("fast");
+        $(".lineNumber bloc").each(function(){
+            if ($(this).data('beginning') == bloc.data('beginning'))
+                $(this).slideUp('fast');
+        });
     } else {
         $(this).attr('src', 'img/collapse.png');
         bloc.slideDown("fast");
+        $(".lineNumber bloc").each(function(){
+            if ($(this).data('beginning') == bloc.data('beginning')){
+                $(this).slideDown('fast', function(){
+                    $(this).css('display', 'inline');
+                });
+                
+            }
+        });
     }
 });
 
 // LINE NUMBER
-$('.lineNumber').each(function(i, v){
-    var lines = getLineNumbers();
-    console.log(lines);
-    for (var i = 1; i < lines; i++){
-        $(this).append(i + '<br>');
-    }
+$('.lineNumber').each(function (i, v) {
+    addLineNumbers($(this));
 });
