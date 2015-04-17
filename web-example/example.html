@@ -1,94 +1,114 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="c_style.css">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <script src="jquery-1.11.2.min.js"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/documentation.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Code Example</title>
 </head>
 
 <body>
-    <div class="code-style">
-        <directive>#include</directive>
-        <include_value>&lt;stdio.h&gt;</include_value>
-        <br>
-        <directive>#include</directive>
-        <include_value>&lt;stdlib.h&gt;</include_value>
-        <br>
-        <br>
-        <directive>#define</directive>
-        <identifier>CONSTANT</identifier>
-        <value>1</value>
-        <br>
-        <br>
-        <comment>// This is a comment</comment>
-        <br>
-        <img class="code-expander" src="img/collapse.png">
-        <declaration><type>int</type>
-        <identifier class="declaration">myFunction</identifier>(
-        <type>int</type>
-        <identifier>var1</identifier>,
-        <type>char</type>*
-        <identifier>var2</identifier>) </declaration>{
-        <br>
-        <div class="bloc">
-            <img class="code-expander" src="img/collapse.png">
-            <keyword>if</keyword>(
-            <identifier>var1</identifier> ==
-            <identifier>CONSTANT</identifier>)
-            <br>
-            <div class="bloc">
-                <keyword>return</keyword>
-                <value>2</value>;
-                <br>
-            </div>
-            <img class="code-expander" src="img/collapse.png">
-            <keyword>else if</keyword>(
-            <identifier>var2</identifier> ==
-            <null>NULL</null>)
-            <br>
-            <div class="bloc">
+    <div class="container">
+        <div class="mainContent row">
+            <div class="col-lg-1 lineNumber"></div>
+            <div class="col-lg-11">
+                <div class="code-style">
+                    <directive>#include</directive>
+                    <include_value>&lt;stdio.h&gt;</include_value>
+                    <br>
+                    <directive>#include</directive>
+                    <include_value>&lt;stdlib.h&gt;</include_value>
+                    <br>
+                    <br>
+                    <directive>#define</directive>
+                    <identifier>CONSTANT</identifier>
+                    <value>1</value>
+                    <br>
+                    <br>
+                    <comment>// This is a comment</comment>
+                    <br>
+                    <img class="code-expander" src="img/collapse.png">
+                    <declaration>
+                        <type>int</type>
+                        <identifier class="declaration">myFunction</identifier>(
+                        <declaration>
+                            <type>int</type>
+                            <identifier class="declaration">var1</identifier>
+                        </declaration>,
+                        <declaration>
+                            <type>char</type>*
+                            <identifier class="declaration">var2</identifier>
+                        </declaration>) </declaration>{
+                    <br>
+                    <div class="bloc">
+                        <img class="code-expander" src="img/collapse.png">
+                        <keyword>if</keyword>(
+                        <identifier>var1</identifier> ==
+                        <identifier>CONSTANT</identifier>)
+                        <br>
+                        <div class="bloc">
+                            <keyword>return</keyword>
+                            <value>2</value>;
+                            <br>
+                        </div>
+                        <img class="code-expander" src="img/collapse.png">
+                        <keyword>else if</keyword>(
+                        <identifier>var2</identifier> ==
+                        <null>NULL</null>)
+                        <br>
+                        <div class="bloc">
 
-                <keyword>return</keyword>
-                <value>0</value>;
-                <br>
-            </div>
-            <img class="code-expander" src="img/collapse.png"><keyword>else</keyword>
-            <br>
-            <div class="bloc">
-                <keyword>return</keyword>
-                <value>1</value>;
-                <br>
+                            <keyword>return</keyword>
+                            <value>0</value>;
+                            <br>
+                        </div>
+                        <img class="code-expander" src="img/collapse.png">
+                        <keyword>else</keyword>
+                        <br>
+                        <div class="bloc">
+                            <keyword>return</keyword>
+                            <value>1</value>;
+                            <br>
+                        </div>
+                    </div>
+                    }
+                    <br>
+                    <br>
+                    <br>
+                    <comment>/* This is a
+                        <br> bloc comment */</comment>
+                    <br>
+                    <img class="code-expander" src="img/collapse.png">
+                    <declaration>
+                        <type>int</type>
+                        <identifier class="declaration">main</identifier>(
+                        <declaration>
+                            <type>int</type>
+                            <identifier class="declaration">argc</identifier>
+                        </declaration>,
+                        <declaration>
+                            <type>char</type>*
+                            <identifier class="declaration">argv</identifier>
+                        </declaration>)</declaration>{
+                    <br>
+                    <div class="bloc">
+                        <identifier>myFunction</identifier>(
+                        <value>2</value>,
+                        <value>NULL</value>);
+                        <br>
+                        <keyword>return</keyword>
+                        <value>0</value>;
+                        <br>
+                    </div>
+                    }
+                    <br>
+                </div>
             </div>
         </div>
-        }
-        <br>
-        <br>
-        <br>
-        <comment>/* This is a
-            <br> bloc comment */</comment>
-        <br>
-        <img class="code-expander" src="img/collapse.png">
-        <declaration><type>int</type>
-        <identifier class="declaration">main</identifier>(
-        <type>int</type>
-        <identifier>argc</identifier>,
-        <type>char</type>*
-        <identifier>argv</identifier>)</declaration>{
-        <br>
-        <div class="bloc">
-            <identifier>myFunction</identifier>(
-            <value>2</value>,
-            <value>NULL</value>);
-            <br>
-            <keyword>return</keyword>
-            <value>0</value>;
-            <br>
-        </div>
-        }
-        <br>
     </div>
-    <script src="exampleScript.js"></script>
+    <script src="js/documentationScript.js"></script>
 </body>
 
 </html>

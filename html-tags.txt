@@ -3,15 +3,25 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="c_style.css">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <script src="jquery-1.11.2.min.js"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/documentation.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Code Example</title>
 </head>
 
 <body>
-    Your code go between : <div class="code-style">code here</div>
-    <script src="exampleScript.js"></script>
+    <div class="container">
+        <div class="mainContent row">
+            <div class="col-lg-1 lineNumber"></div>
+                <div class="col-lg-11">
+                    <div class="code-style">INSERT CODE HERE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/documentationScript.js"></script>
 </body>
 
 </html>
@@ -67,7 +77,7 @@ if(a==b) {
 
 ## In declaration of function or variable, use <declaration>. (Possibility : use grammar analyze to detect it)
 
-Ex : <declaration>int <identifier>myFunction</identifier>(int a)</declaration>{
-        <declaration>char <identifier>myVariable</identifier></declaration>;
+Ex : <declaration>int <identifier class="declaration">myFunction</identifier>(int a)</declaration>{
+        <declaration>char <identifier class="declaration">myVariable</identifier></declaration>;
 
 ## Dedicated comments : /** .. */ Recognize it. There's lot of functionalities to implement with it. 

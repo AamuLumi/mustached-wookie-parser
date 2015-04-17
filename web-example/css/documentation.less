@@ -1,5 +1,25 @@
 @indentation: 30px;
+@paddingFromTop: 20px;
+@paddingFromBeginningBody: 20px;
+body {
+    background-color: #45B29D;
+    padding-top: @paddingFromTop;
+}
+
+.mainContent {
+    background-color: #C0FFF0;
+    border: 1px groove #999;
+    border-radius: 5px;
+}
+
+.lineNumber {
+    padding: @paddingFromBeginningBody 0px;
+    text-align: right;
+    font-style: italic;
+}
+
 .code-style {
+    padding: @paddingFromBeginningBody 2px;
     font-family: 'PT-Sans', sans-serif;
     directive {
         color: #004a43;
@@ -37,19 +57,19 @@
     .code-expander {
         cursor: pointer;
         vertical-align: text-top;
-        width:17px;
-        height:17px;
+        width: 17px;
+        height: 17px;
     }
 }
 
-.tooltip {
-	display:none;
-	position:absolute;
-	border:1px solid #333;
-	background-color:#161616;
-	border-radius:5px;
-	padding:10px;
-	color:#fff;
+.identifierTooltip {
+    display: none;
+    position: absolute;
+    border: 1px solid #333;
+    background-color: #161616;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
     font-size: 12px;
-	font-family: 'PT-Sans', sans-serif;
+    font-family: 'PT-Sans', sans-serif;
 }

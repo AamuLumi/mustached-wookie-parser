@@ -1,7 +1,9 @@
-var colorHoverIdentifier = "yellow";
+var colorHoverIdentifier = "#4DC7AF";
 var colorHighlightIdentifier = "#97D17A";
 
 var highlightedIdentifier = undefined;
+
+var lineNumber = 1;
 
 function resetHighlightIdentifier() {
     $(".code-style identifier").each(function (i) {
@@ -20,9 +22,25 @@ function highlightIdentifiers(elementText) {
     });
 }
 
+function getLineNumbers(){
+    var i = 1;
+    
+    $(".code-style br").each(function(){
+        i++;
+    });
+    
+    return i;
+}
+
+
+// DECLARATION
+
 $(".declaration").each(function(i, v){
     $(this).parent('declaration').data('identifier', $(this).text());
 });
+
+
+// IDENTIFIER
 
 $(".code-style identifier").click(function () {
     highlightIdentifiers($(this).text());
@@ -39,7 +57,6 @@ $(".code-style identifier").hover(function () {
         var declaration;
         
         $("declaration").each(function(i, v){
-            console.log($(this).text());
             if ($(this).data('identifier') == identifierToFind){
                 declaration = $(this).text();
                 return false;
@@ -54,7 +71,7 @@ $(".code-style identifier").hover(function () {
     
     var title = $(this).data('tipText');
     
-    $('<p class="tooltip"></p>').text(title).appendTo("body").fadeIn("slow");
+    $('<p class="identifierTooltip"></p>').text(title).appendTo("body").fadeIn("slow");
 }, function () {
     // Reinit background color
     if ($(this).text() === highlightedIdentifier)
@@ -63,16 +80,19 @@ $(".code-style identifier").hover(function () {
         $(this).css("background", "none");
 
     // Remove Tooltip
-    $(".tooltip").remove();
+    $(".identifierTooltip").remove();
 }).mousemove(function (e) {
     // Move tooltip with mouse
     var mousex = e.pageX + 20;
     var mousey = e.pageY + 10;
-    $(".tooltip").css({
+    $(".identifierTooltip").css({
         top: mousey,
         left: mousex
     });
 });
+
+
+// CODE EXPANDER
 
 $(".code-expander").click(function () {
     var bloc = $(this);
@@ -87,5 +107,14 @@ $(".code-expander").click(function () {
     } else {
         $(this).attr('src', 'img/collapse.png');
         bloc.slideDown("fast");
+    }
+});
+
+// LINE NUMBER
+$('.lineNumber').each(function(i, v){
+    var lines = getLineNumbers();
+    console.log(lines);
+    for (var i = 1; i < lines; i++){
+        $(this).append(i + '<br>');
     }
 });
