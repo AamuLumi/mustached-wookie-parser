@@ -65,7 +65,17 @@ $(".declaration").each(function (i, v) {
 
 // IDENTIFIER
 
-$(".code-style identifier").hover(function () {
+$(".code-style identifier").click(function goToDefinition(){
+    var currentIndentifier = $(this).text();
+    $(".declaration").each(function(){
+        if ($(this).text() === currentIndentifier){
+            $('html,body').animate({scrollTop: $(this).offset().top}, 'medium');
+            return false;
+        }
+    });
+});
+
+$(".code-style identifier").hover(function highlightAndTooltip() {
     highlightIdentifiers($(this).text());
 
     // Add Tooltip to identifier
@@ -90,7 +100,7 @@ $(".code-style identifier").hover(function () {
     var title = $(this).data('tipText');
 
     $('<p class="identifierTooltip"></p>').text(title).appendTo("body").fadeIn("slow");
-}, function () {
+}, function removeHighlightAndTooltip() {
 
     resetHighlightIdentifier();
     // Reinit background color
@@ -101,7 +111,7 @@ $(".code-style identifier").hover(function () {
 
     // Remove Tooltip
     $(".identifierTooltip").remove();
-}).mousemove(function (e) {
+}).mousemove(function moveTooltip(e) {
     // Move tooltip with mouse
     var mousex = e.pageX + 20;
     var mousey = e.pageY + 10;
