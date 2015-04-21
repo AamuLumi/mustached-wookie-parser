@@ -9,7 +9,8 @@ L3 Parser project for Bordeaux University
 
 ## Web Example
 
-+ Create an example web document with HTML/CSS/JS with points described in 3rd section of project description.
+*Objective :* Create an example web document with HTML/CSS/JS to show a result of C code parsing.
+  
 - [X] Indented code
 - [X] Color syntax
 - [X] Highlight variables and functions when mouse is on identifier
@@ -17,4 +18,4 @@ L3 Parser project for Bordeaux University
 - [X] Click on identifier go to definition
 - [ ] Dedicated comments
 
-More informations : [Project's description - Marc Zeitoun](http://www.labri.fr/perso/zeitoun/enseignement/14-15/AS+IT2/uploads/Site/AnalyseSyntaxique/Projet-ASPP3-2014-15.pdf)
+*More informations :* [Project's description - Marc Zeitoun](http://www.labri.fr/perso/zeitoun/enseignement/14-15/AS+IT2/uploads/Site/AnalyseSyntaxique/Projet-ASPP3-2014-15.pdf)
