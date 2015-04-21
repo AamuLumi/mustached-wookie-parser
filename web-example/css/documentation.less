@@ -1,26 +1,41 @@
 @indentation: 30px;
-@paddingFromTop: 20px;
-@paddingFromBeginningBody: 20px;
+@paddingFromTop: 1em;
+@paddingInCodeStyle: 2em;
+
+@font-face{
+    font-family: 'Aller';
+    src: url('../fonts/Aller_Bd.ttf');
+}
+@font-face{
+    font-family: 'Inconsolata';
+    src: url('../fonts/Inconsolata-Bold.ttf');
+}
 body {
-    background-color: #45B29D;
+    background-color: #734F95;
     padding-top: @paddingFromTop;
+    padding-bottom: @paddingFromTop;
+}
+
+.page-title {
+    font-family: 'Aller';
+    color : #9EFFFF;
+    font-size: 6em;
+    padding-bottom: 0.2em;
 }
 
 .mainContent {
-    background-color: #C0FFF0;
-    border: 1px groove #999;
-    border-radius: 5px;
+    background-color: #9EFFFF;
 }
 
 .lineNumber {
-    padding: @paddingFromBeginningBody 0px;
+    padding: @paddingInCodeStyle 0em;
     text-align: right;
     font-style: italic;
 }
 
 .code-style {
-    padding: @paddingFromBeginningBody 2px;
-    font-family: 'PT-Sans', sans-serif;
+    padding: @paddingInCodeStyle 0em;
+    font-family: 'Inconsolata';
     directive {
         color: #004a43;
     }
@@ -28,27 +43,28 @@ body {
         color: #808030;
     }
     include_value {
-        color: #40015a;
+        color: #3D3DFF;
     }
     type {
-        color: #800000;
+        color: #5999B7;
         font-weight: bold;
     }
     null {
         color: #7d0045;
     }
     value {
-        color: #008c00;
+        color: #837800;
     }
     identifier {
+        color: #2929AF;
         cursor: pointer;
     }
     keyword {
-        color: #800000;
+        color: #CD2E33;
         font-weight: bold;
     }
     comment {
-        color: #800000;
+        color: #4E79FF;
         font-style: italic;
     }
     .block {
@@ -57,19 +73,17 @@ body {
     .code-expander {
         cursor: pointer;
         vertical-align: text-top;
-        width: 17px;
-        height: 17px;
+        width: 1em;
+        height: 1em;
     }
 }
 
 .identifierTooltip {
     display: none;
     position: absolute;
-    border: 1px solid #333;
-    background-color: #161616;
-    border-radius: 5px;
+    background-color: #734F95;
     padding: 10px;
     color: #fff;
-    font-size: 12px;
-    font-family: 'PT-Sans', sans-serif;
+    font-size: 1em;
+    font-family: 'Inconsolata';
 }
