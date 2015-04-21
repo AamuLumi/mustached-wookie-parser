@@ -70,19 +70,39 @@ function addLineNumbers(element) {
         }
     });
 }
+
 /**
-* Search declaration of an identifier
-*/
-function getDeclarationFor(identifierToFind) {
+ * Search declaration of an identifier
+ *  (parent-by-parent method)
+ */
+function getDeclarationFor(tag, currentParent) {
     var declaration = undefined;
 
-    $("declaration").each(function (i, v) {
-        if ($(this).data('identifier') == identifierToFind) {
-            declaration = $(this).text();
-            return false;
-        }
-    });
+    // Initial case of getDeclarationFor
+    if (typeof currentParent === 'undefined')
+        return getDeclarationFor(tag, tag.parent());
+    else {
+        // Find all declarations in actual parent
+        currentParent.find("declaration").each(function findDeclaration() {
+            // Check if this is the searched identifier
+            if ($(this).data('identifier') == tag.text()) {
+                declaration = $(this).text();
+                return false;
+            }
+        });
+    }
 
+    // No declaration correspond to searched identifier
+    if (declaration == undefined) {
+        // If code-style tag is reached, return "Not Found"
+        if (currentParent.attr('class') === 'code-style')
+            return "Not Found";
+        // Else recursive search with parent of currentParent
+        else
+            return getDeclarationFor(tag, currentParent.parent());
+    }
+
+    // Return found declaration
     return declaration;
 }
 
@@ -135,7 +155,7 @@ $(".code-style identifier").hover(
 
         // Search declaration if not defined
         if ($(this).data('tipText') == undefined) {
-            var declaration = getDeclarationFor($(this).text());
+            var declaration = getDeclarationFor($(this));
 
             if (declaration == undefined)
                 $(this).data('tipText', "Not found");
