@@ -9,11 +9,11 @@ function resetHighlightIdentifier() {
     $(".code-style identifier").each(function (i) {
         $(this).css("background", "none");
     });
+
+    highlightedIdentifier = undefined;
 }
 
 function highlightIdentifiers(elementText) {
-    resetHighlightIdentifier();
-
     highlightedIdentifier = elementText;
 
     $(".code-style identifier").each(function (i) {
@@ -32,23 +32,24 @@ function addLineNumbers(element) {
 
     $(".code-style *").each(function () {
         if ($(this).get(0).tagName === "BR") {
-            console.log(endArray);
+            // Check if this line is an end of bloc
             for (var i = 0; i < endArray.length; i++) {
                 if (endArray[i] == line) {
                     endArray.splice(i, 1);
                     element = element.parent();
-                    i -=1;
+                    // One element removed -> need to decremente iterator
+                    i -= 1;
                 }
             }
 
             element.append(line + "<br>");
             line++;
         } else if ($(this).attr('class') === "bloc") {
+            // Add bloc if is a bloc
             var el = $("<bloc>").data("beginning", $(this).data("beginning")).appendTo(element);
             endArray.push($(this).data("end"));
-            
-            console.log($(this).data("end"));
 
+            // Go to new element
             element = el;
         }
     });
@@ -64,13 +65,8 @@ $(".declaration").each(function (i, v) {
 
 // IDENTIFIER
 
-$(".code-style identifier").click(function () {
-    highlightIdentifiers($(this).text());
-});
-
 $(".code-style identifier").hover(function () {
-    // Change background color
-    $(this).css("background", colorHoverIdentifier);
+    highlightIdentifiers($(this).text());
 
     // Add Tooltip to identifier
     if ($(this).data('tipText') == undefined) {
@@ -95,6 +91,8 @@ $(".code-style identifier").hover(function () {
 
     $('<p class="identifierTooltip"></p>').text(title).appendTo("body").fadeIn("slow");
 }, function () {
+
+    resetHighlightIdentifier();
     // Reinit background color
     if ($(this).text() === highlightedIdentifier)
         $(this).css("background", colorHighlightIdentifier);
@@ -138,19 +136,19 @@ $(".code-expander").click(function () {
     if ($(this).attr('src') == 'img/collapse.png') {
         $(this).attr('src', 'img/expand.png');
         bloc.slideUp("fast");
-        $(".lineNumber bloc").each(function(){
+        $(".lineNumber bloc").each(function () {
             if ($(this).data('beginning') == bloc.data('beginning'))
                 $(this).slideUp('fast');
         });
     } else {
         $(this).attr('src', 'img/collapse.png');
         bloc.slideDown("fast");
-        $(".lineNumber bloc").each(function(){
-            if ($(this).data('beginning') == bloc.data('beginning')){
-                $(this).slideDown('fast', function(){
+        $(".lineNumber bloc").each(function () {
+            if ($(this).data('beginning') == bloc.data('beginning')) {
+                $(this).slideDown('fast', function () {
                     $(this).css('display', 'inline');
                 });
-                
+
             }
         });
     }
