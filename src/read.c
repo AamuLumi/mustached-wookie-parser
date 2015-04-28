@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 // Je suis un simple commentaire
-int myFunction(int c){
+int myFunction(int c)
+{
 	if (c == 2)
 		return 32;
 	else
