@@ -42,7 +42,7 @@ extern FILE* yyout;
 %%
 "#".*                   { analyzeDirective();}
 "/*"                                    { comment(); }
-"//".*                                    {  fprintf(yyout, "%s", "<comment>// yytext</comment>");}
+"//".*                                    {  fprintf(yyout, "<comment>%s</comment>", yytext);}
 
 "auto"					{ fprintf(yyout, "%s", "<keyword>auto</keyword>");return(AUTO); }
 "break"					{ fprintf(yyout, "%s", "<keyword>break</keyword>");return(BREAK); }
@@ -169,20 +169,33 @@ void analyzeDirective(void){
 
 static void comment(void)
 {
+    fprintf(yyout, "<comment>/*");
     int c;
 
     while ((c = input()) != 0)
+    {
         if (c == '*')
         {
             while ((c = input()) == '*')
-                ;
+                fprintf(yyout, "%c", c);
 
             if (c == '/')
+            {
+                fprintf(yyout, "*/</comment>");
+
                 return;
+            }
 
             if (c == 0)
                 break;
         }
+
+        if (c == '\n')
+            fprintf(yyout, "<br>");
+
+        else
+            fprintf(yyout, "%c", c);
+    }
     yyerror("unterminated comment");
 }
 
