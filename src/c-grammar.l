@@ -217,20 +217,31 @@ void createHTMLBeginFile(FILE * fichier)
     fprintf(fichier, "%s\n", "<html>");
 
     fprintf(fichier, "%s\n", "<head>");
-        fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"c_style.css\">");
-        fprintf(fichier, "%s\n", "<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>");
-        fprintf(fichier, "%s\n", "<script src=\"jquery-1.11.2.min.js\"></script>");
-        fprintf(fichier, "%s\n", "<title>Code Example</title>");
-    fprintf(fichier, "%s\n", "</head>");
-
+    fprintf(fichier, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
+    fprintf(fichier, "%s\n","<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
+    fprintf(fichier, "%s\n","<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
+    fprintf(fichier, "%s\n","<title>Code Example</title>");
+    fprintf(fichier, "%s\n","</head>");
     fprintf(fichier, "%s\n", "<body>");
+    fprintf(fichier, "%s\n","<div class=\"container\">");
+    fprintf(fichier, "%s\n","<div class=\"page-title\">test.c</div>");
+    fprintf(fichier, "%s\n","<div class=\"mainContent row\">");
+    fprintf(fichier, "%s\n","<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(fichier, "%s\n","<div class=\"col-xs-11\">");
+    fprintf(fichier, "%s\n","<div class=\"code-style\">");
 }
 
 void createHTMLEndFile(FILE * fichier)
 {
-    fprintf(fichier, "%s\n", "</body>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n","</div>");
+    fprintf(fichier, "%s\n","</div>");
+    fprintf(fichier, "%s\n","</div>");
+    fprintf(fichier, "%s\n","<script src=\"js/documentationScript.js\"></script>");
+    fprintf(fichier, "%s\n","</body>");
 
-    fprintf(fichier, "%s\n", "</html>");
+    fprintf(fichier, "%s\n","</html>");
 }
 
 int main(int argc, char* argv[]){
