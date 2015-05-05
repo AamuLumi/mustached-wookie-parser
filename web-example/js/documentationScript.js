@@ -4,7 +4,7 @@ var colorHighlightIdentifier = "#97D17A";
 var tooltipOffsetX = 20;
 var tooltipOffsetY = 10;
 
-var highlightedIdentifier = undefined;
+var highlightedIdentifier;
 
 var lineNumber = 1;
 

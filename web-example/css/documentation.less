@@ -1,30 +1,55 @@
 @indentation: 30px;
 @paddingFromTop: 1em;
 @paddingInCodeStyle: 2em;
-
-@font-face{
+@baseColor: #000000;
+@backgroundColor: #FFFFFF;
+@titleBackgroundColor: #DDD;
+@font-face {
     font-family: 'Aller';
     src: url('../fonts/Aller_Bd.ttf');
 }
-@font-face{
+
+@font-face {
     font-family: 'Inconsolata';
     src: url('../fonts/Inconsolata-Bold.ttf');
 }
+
 body {
-    background-color: #734F95;
+    background-color: @backgroundColor;
     padding-top: @paddingFromTop;
     padding-bottom: @paddingFromTop;
 }
 
-.page-title {
+.page-header {
     font-family: 'Aller';
-    color : #9EFFFF;
-    font-size: 6em;
+    color: @baseColor;
+    background-color: @titleBackgroundColor;
     padding-bottom: 0.2em;
+    padding-left:3em;
+    margin: 0px;
+    border: 0px;
+    .title {
+        font-size: 6em;
+    }
+    .description {
+        font-size: 2em;
+        padding-left:4em;
+    }
 }
 
-.mainContent {
-    background-color: #9EFFFF;
+.page-footer {
+    font-family: 'Aller';
+    color: @baseColor;
+    background-color: @titleBackgroundColor;
+    color : #888;
+    text-align: center;
+    font-style: italic;
+    font-size: 1em;
+    padding: 0.2em 0em;
+}
+
+s .mainContent {
+    background-color: @backgroundColor;
 }
 
 .lineNumber {
@@ -81,7 +106,7 @@ body {
 .identifierTooltip {
     display: none;
     position: absolute;
-    background-color: #734F95;
+    background-color: rgba(102, 102, 102, 0.94);
     padding: 10px;
     color: #fff;
     font-size: 1em;
