@@ -1,0 +1,51 @@
+\documentclass[10pt,a4paper]{report}
+
+% Packages
+
+\usepackage{newcent}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{color}
+\usepackage{caption}
+\usepackage[colorlinks=true, linkcolor=black]{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{babel}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\title{Analyse Syntaxique - Rapport de projet}
+\author{Florian KAUDER - Julie LOPEZ - Nathan TUTARD - Lilian CHAMPROY}
+\date{6 Mai 2015}
+
+\begin{document}
+
+% Page de garde
+\maketitle
+
+% Rapport
+
+\input{Introduction.tex}
+\newpage
+
+\pagestyle{headings}
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\input{General/Organisation.tex}
+\newpage
+
+\input{Parseur/Index.tex}
+\newpage
+
+\input{Web/Index.tex}
+\newpage
+
+\end{document}
