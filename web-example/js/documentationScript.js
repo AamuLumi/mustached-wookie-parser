@@ -92,7 +92,7 @@ function getDeclarationFor(tag, currentParent) {
         // Find all declarations in actual parent
         currentParent.find("declaration").each(function findDeclaration() {
             // Check if this is the searched identifier
-            if ($(this).data('identifier') == tag.text()) {
+            if ($(this).attr('id') == tag.text()) {
                 declaration = $(this).text();
                 return undefined;
             }
@@ -133,7 +133,7 @@ $(".code-style *").each(function analyzeHTMLDocument() {
 
 // Add identifier name to each <declaration></declaration>
 $(".declaration").each(function addIdentifierToDeclaration(i, v) {
-    $(this).parent('declaration').data('identifier', $(this).text());
+    $(this).parent('declaration').attr('id', $(this).text());
 });
 
 
