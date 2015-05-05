@@ -18,10 +18,11 @@ FS  (f|F|l|L)
 IS  (((u|U)(l|L|ll|LL)?)|((l|L|ll|LL)(u|U)?))
 CP  (u|U|L)
 SP  (u8|u|U|L)
-ES  (\\(['"\?\\abfnrtv]|[0-7]{1,3}|x[a-fA-F0-9]+))
+ES  (\\(['"\?\\abfnrtv]|[0-7]{1,3}|x[a-fA-F0-9]+)) 
 WS  [ \t\v\n\f]
 
 %{
+    //'
 #include <stdio.h>
 #include "c-grammar.tab.h"
 
@@ -40,9 +41,9 @@ extern FILE* yyout;
 %}
 
 %%
-"#".*                   { analyzeDirective();}
+"#"                   { analyzeDirective();}
 "/*"                                    { comment(); }
-"//".*                                    {  fprintf(yyout, "%s", "<comment>// yytext</comment>");}
+"//".*                                    {  fprintf(yyout, "<comment>%s</comment>", yytext);}
 
 "auto"					{ fprintf(yyout, "%s", "<keyword>auto</keyword>");return(AUTO); }
 "break"					{ fprintf(yyout, "%s", "<keyword>break</keyword>");return(BREAK); }
@@ -90,21 +91,21 @@ extern FILE* yyout;
 "_Thread_local"                         { return THREAD_LOCAL; }
 "__func__"                              { return FUNC_NAME; }
 
-{L}{A}*					{ return check_type(); }
+{L}{A}*					{ fprintf(yyout, "<identifier>%s</identifier>", yytext);return check_type(); }
 
-{HP}{H}+{IS}?				{ printf("%s", yytext);return I_CONSTANT; }
-{NZ}{D}*{IS}?				{ return I_CONSTANT; }
-"0"{O}*{IS}?				{ return I_CONSTANT; }
-{CP}?"'"([^'\\\n]|{ES})+"'"		{ return I_CONSTANT; }
+{HP}{H}+{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
+{NZ}{D}*{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
+"0"{O}*{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
+{CP}?"'"([^'\\\n]|{ES})+"'"		{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
 
-{D}+{E}{FS}?				{ return F_CONSTANT; }
-{D}*"."{D}+{E}?{FS}?			{ return F_CONSTANT; }
-{D}+"."{E}?{FS}?			{ return F_CONSTANT; }
-{HP}{H}+{P}{FS}?			{ return F_CONSTANT; }
-{HP}{H}*"."{H}+{P}{FS}?			{ return F_CONSTANT; }
-{HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
+{D}+{E}{FS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{D}*"."{D}+{E}?{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{D}+"."{E}?{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}+{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}*"."{H}+{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}+"."{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
 
-({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ fprintf(yyout, "<string>%s</string>", yytext); return STRING_LITERAL; }
 
 "..."					{ fprintf(yyout, "%s", yytext);return ELLIPSIS; }
 ">>="					{ fprintf(yyout, "%s", "&gt&gt=");return RIGHT_ASSIGN; }
@@ -129,7 +130,8 @@ extern FILE* yyout;
 "=="					{ fprintf(yyout, "%s", yytext);return EQ_OP; }
 "!="					{ fprintf(yyout, "%s", yytext);return NE_OP; }
 ";"					{ fprintf(yyout, "%s", yytext);return ';'; }
-("{"|"<%")				{ fprintf(yyout, "%s", "<div class=\"bloc\">");return '{'; }
+("{"|"<%"){WS}*\n         { fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
+("{"|"<%")				{ fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
 ("}"|"%>")				{ fprintf(yyout, "</div>}");return '}'; }
 ","					{ fprintf(yyout, "%s", yytext);return ','; }
 ":"					{ fprintf(yyout, "%s", yytext);return ':'; }
@@ -147,13 +149,14 @@ extern FILE* yyout;
 "*"					{ fprintf(yyout, "%s", yytext);return '*'; }
 "/"					{ fprintf(yyout, "%s", yytext);return '/'; }
 "%"					{ fprintf(yyout, "%s", yytext);return '%'; }
-"<"					{ fprintf(yyout, "%s", "&lt");return '<'; }
-">"					{ fprintf(yyout, "%s", "&gt");return '>'; }
+"<"					{ fprintf(yyout, "%s", "&lt;");return '<'; }
+">"					{ fprintf(yyout, "%s", "&gt;");return '>'; }
 "^"					{ fprintf(yyout, "%s", yytext);return '^'; }
 "|"					{ fprintf(yyout, "%s", yytext);return '|'; }
 "?"					{ fprintf(yyout, "%s",yytext);return '?'; }
+"\n"                { fprintf(yyout, "<br>");}
 
-{WS}					{ /* whitespace separates tokens */ }
+{WS}					{ fprintf(yyout, " ");}
 .					{ /* discard bad characters */ }
 
 %%
@@ -163,26 +166,62 @@ int yywrap(void)        /* called at end of input */
     return 1;           /* terminate now */
 }
 
-void analyzeDirective(void){
+void analyzeDirective(void)
+{
+    fprintf(yyout, "<directive>#");
+
+    int c;
+
+    while ((c = input()) != '\n')
+    {
+        if (c == '<')
+            fprintf(yyout, "&lt;");
+
+        else if (c == '>')
+            fprintf(yyout, "&gt;");
+        else
+            fprintf(yyout, "%c", c);
+    }
+
+    fprintf(yyout, "</directive><br>");
 
 }
 
 static void comment(void)
 {
+    fprintf(yyout, "<comment>/*");
     int c;
 
     while ((c = input()) != 0)
+    {
         if (c == '*')
         {
             while ((c = input()) == '*')
-                ;
+                fprintf(yyout, "%c", c);
 
             if (c == '/')
+            {
+                fprintf(yyout, "*/</comment>");
+
                 return;
+            }
 
             if (c == 0)
                 break;
         }
+
+        else if (c == '<')
+            fprintf(yyout, "&lt;");
+
+        else if (c == '>')
+            fprintf(yyout, "&gt;");
+
+        else if (c == '\n')
+            fprintf(yyout, "<br>");
+
+        else
+            fprintf(yyout, "%c", c);
+    }
     yyerror("unterminated comment");
 }
 
@@ -204,20 +243,31 @@ void createHTMLBeginFile(FILE * fichier)
     fprintf(fichier, "%s\n", "<html>");
 
     fprintf(fichier, "%s\n", "<head>");
-        fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"c_style.css\">");
-        fprintf(fichier, "%s\n", "<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>");
-        fprintf(fichier, "%s\n", "<script src=\"jquery-1.11.2.min.js\"></script>");
-        fprintf(fichier, "%s\n", "<title>Code Example</title>");
-    fprintf(fichier, "%s\n", "</head>");
-
+    fprintf(fichier, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
+    fprintf(fichier, "%s\n","<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
+    fprintf(fichier, "%s\n","<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
+    fprintf(fichier, "%s\n","<title>Code Example</title>");
+    fprintf(fichier, "%s\n","</head>");
     fprintf(fichier, "%s\n", "<body>");
+    fprintf(fichier, "%s\n","<div class=\"container\">");
+    fprintf(fichier, "%s\n","<div class=\"page-title\">test.c</div>");
+    fprintf(fichier, "%s\n","<div class=\"mainContent row\">");
+    fprintf(fichier, "%s\n","<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(fichier, "%s\n","<div class=\"col-xs-11\">");
+    fprintf(fichier, "%s\n","<div class=\"code-style\">");
 }
 
 void createHTMLEndFile(FILE * fichier)
 {
-    fprintf(fichier, "%s\n", "</body>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n","</div>");
+    fprintf(fichier, "%s\n","</div>");
+    fprintf(fichier, "%s\n","</div>");
+    fprintf(fichier, "%s\n","<script src=\"js/documentationScript.js\"></script>");
+    fprintf(fichier, "%s\n","</body>");
 
-    fprintf(fichier, "%s\n", "</html>");
+    fprintf(fichier, "%s\n","</html>");
 }
 
 int main(int argc, char* argv[]){
