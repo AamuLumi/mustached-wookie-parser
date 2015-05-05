@@ -27,6 +27,7 @@ body {
 .page-header .description {
   font-size: 2em;
   padding-left: 4em;
+  padding-right: 1em;
 }
 .page-footer {
   font-family: 'Aller';
