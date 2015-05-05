@@ -22,6 +22,7 @@ function resetHighlightIdentifier() {
 
 /**
  * Highlight a specific identifier
+ * @param {String} elementText identifier to highlight
  */
 function highlightIdentifiers(elementText) {
     highlightedIdentifier = elementText;
@@ -34,6 +35,8 @@ function highlightIdentifiers(elementText) {
 
 /**
  * Count the number of <br> in the given tag
+ * @param   {String} tag tags between br are searched
+ * @returns {Number} number of br tags found
  */
 function numberOfBr(tag) {
     return tag.find('br').length;
@@ -41,6 +44,7 @@ function numberOfBr(tag) {
 
 /**
  * Create line numbers element with a code-style element
+ * @param {Object} element code-style element
  */
 function addLineNumbers(element) {
     var line = 1;
@@ -73,7 +77,10 @@ function addLineNumbers(element) {
 
 /**
  * Search declaration of an identifier
- *  (parent-by-parent method)
+ * (parent-by-parent method)
+ * @param   {Object}         tag           tag for the declaration we search
+ * @param   {Object}         currentParent current block of code where search the declaration
+ * @returns {String} declaration if found
  */
 function getDeclarationFor(tag, currentParent) {
     var declaration = undefined;
@@ -87,7 +94,7 @@ function getDeclarationFor(tag, currentParent) {
             // Check if this is the searched identifier
             if ($(this).data('identifier') == tag.text()) {
                 declaration = $(this).text();
-                return false;
+                return undefined;
             }
         });
     }
