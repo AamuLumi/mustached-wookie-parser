@@ -4,6 +4,9 @@
 @baseColor: #000000;
 @backgroundColor: #FFFFFF;
 @titleBackgroundColor: #DDD;
+@variableBackgroundColor: #D2DFD2;
+@functionBackgroundColor: #DFE5EE;
+@documentationPrototypeSize: 1.5em;
 @font-face {
     font-family: 'Aller';
     src: url('../fonts/Aller_Bd.ttf');
@@ -25,7 +28,7 @@ body {
     color: @baseColor;
     background-color: @titleBackgroundColor;
     padding-bottom: 0.2em;
-    padding-left:3em;
+    padding-left: 3em;
     margin: 0px;
     border: 0px;
     .title {
@@ -33,7 +36,7 @@ body {
     }
     .description {
         font-size: 2em;
-        padding-left:4em;
+        padding-left: 4em;
         padding-right: 1em;
     }
 }
@@ -42,7 +45,7 @@ body {
     font-family: 'Aller';
     color: @baseColor;
     background-color: @titleBackgroundColor;
-    color : #888;
+    color: #888;
     text-align: center;
     font-style: italic;
     font-size: 1em;
@@ -59,40 +62,49 @@ s .mainContent {
     font-style: italic;
 }
 
+directive {
+    color: #004a43;
+}
+
+symbol {
+    color: #808030;
+}
+
+include_value {
+    color: #3D3DFF;
+}
+
+type {
+    color: #5999B7;
+    font-weight: bold;
+}
+
+null {
+    color: #7d0045;
+}
+
+value {
+    color: #837800;
+}
+
+identifier {
+    color: #2929AF;
+    cursor: pointer;
+}
+
+keyword {
+    color: #CD2E33;
+    font-weight: bold;
+}
+
+comment {
+    color: #4E79FF;
+    font-style: italic;
+}
+
 .code-style {
     padding: @paddingInCodeStyle 0em;
     font-family: 'Inconsolata';
-    directive {
-        color: #004a43;
-    }
-    symbol {
-        color: #808030;
-    }
-    include_value {
-        color: #3D3DFF;
-    }
-    type {
-        color: #5999B7;
-        font-weight: bold;
-    }
-    null {
-        color: #7d0045;
-    }
-    value {
-        color: #837800;
-    }
-    identifier {
-        color: #2929AF;
-        cursor: pointer;
-    }
-    keyword {
-        color: #CD2E33;
-        font-weight: bold;
-    }
-    comment {
-        color: #4E79FF;
-        font-style: italic;
-    }
     .block {
         margin-left: @indentation;
     }
@@ -101,6 +113,49 @@ s .mainContent {
         vertical-align: text-top;
         width: 1em;
         height: 1em;
+    }
+}
+
+.documentation {
+    padding: 2em 1em;
+    .part {
+        font-family: 'Aller';
+        font-size: 2.5em;
+    }
+    .doc-variable {
+        margin: 1.5em 0em;
+        font-family: 'Inconsolata';
+        .variable-declaration {
+            background: @variableBackgroundColor;
+            font-size: @documentationPrototypeSize;
+            font-style: oblique;
+            padding-left: 0.5em;
+        }
+        .doc-text-variable {
+            border: 0.2em solid @variableBackgroundColor;
+            padding: 0.5em;
+            font-size: 1.2em;
+        }
+    }
+    .doc-function {
+        margin: 1.5em 0em;
+        font-family: 'Inconsolata';
+        .prototype {
+            background: @functionBackgroundColor;
+            font-size: @documentationPrototypeSize;
+            font-style: oblique;
+            padding-left: 0.5em;
+        }
+        .doc-text {
+            border: 0.2em solid @functionBackgroundColor;
+            padding: 0.5em;
+            font-size: 1.2em;
+        }
+        .category {
+            background: @functionBackgroundColor;
+            font-size: 1.5em;
+            padding-left: 0.5em;
+        }
     }
 }
 
