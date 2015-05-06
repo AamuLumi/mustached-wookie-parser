@@ -47,40 +47,40 @@ s .mainContent {
   text-align: right;
   font-style: italic;
 }
-.code-style {
-  padding: 2em 0em;
-  font-family: 'Inconsolata';
-}
-.code-style directive {
+directive {
   color: #004a43;
 }
-.code-style symbol {
+symbol {
   color: #808030;
 }
-.code-style include_value {
+include_value {
   color: #3D3DFF;
 }
-.code-style type {
+type {
   color: #5999B7;
   font-weight: bold;
 }
-.code-style null {
+null {
   color: #7d0045;
 }
-.code-style value {
+value {
   color: #837800;
 }
-.code-style identifier {
+identifier {
   color: #2929AF;
   cursor: pointer;
 }
-.code-style keyword {
+keyword {
   color: #CD2E33;
   font-weight: bold;
 }
-.code-style comment {
+comment {
   color: #4E79FF;
   font-style: italic;
+}
+.code-style {
+  padding: 2em 0em;
+  font-family: 'Inconsolata';
 }
 .code-style .block {
   margin-left: 30px;
@@ -90,6 +90,48 @@ s .mainContent {
   vertical-align: text-top;
   width: 1em;
   height: 1em;
+}
+.documentation {
+  padding: 2em 1em;
+}
+.documentation .part {
+  font-family: 'Aller';
+  font-size: 2.5em;
+}
+.documentation .doc-variable {
+  margin: 1.5em 0em;
+  font-family: 'Inconsolata';
+}
+.documentation .doc-variable .variable-declaration {
+  background: #d2dfd2;
+  font-size: 1.5em;
+  font-style: oblique;
+  padding-left: 0.5em;
+}
+.documentation .doc-variable .doc-text-variable {
+  border: 0.2em solid #d2dfd2;
+  padding: 0.5em;
+  font-size: 1.2em;
+}
+.documentation .doc-function {
+  margin: 1.5em 0em;
+  font-family: 'Inconsolata';
+}
+.documentation .doc-function .prototype {
+  background: #dfe5ee;
+  font-size: 1.5em;
+  font-style: oblique;
+  padding-left: 0.5em;
+}
+.documentation .doc-function .doc-text {
+  border: 0.2em solid #dfe5ee;
+  padding: 0.5em;
+  font-size: 1.2em;
+}
+.documentation .doc-function .category {
+  background: #dfe5ee;
+  font-size: 1.5em;
+  padding-left: 0.5em;
 }
 .identifierTooltip {
   display: none;
