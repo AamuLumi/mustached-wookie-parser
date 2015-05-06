@@ -172,8 +172,15 @@ $(".code-style identifier").hover(
 
         var title = $(this).data('tipText');
 
+        if (title !== "Not found"){
+            if ($(this).attr('description') != undefined)
+                title +=  '<br><description>' + $(this).attr('description') + '</description>';
+            if ($(this).attr('return') != undefined)
+            title += '<br><return>Return : ' + $(this).attr('return') + '</return>';
+        }
+
         // Add tooltip to document
-        $('<p class="identifierTooltip"></p>').text(title).appendTo("body").fadeIn("slow");
+        $('<p class="identifierTooltip"></p>').html(title).appendTo("body").fadeIn("slow");
     },
     function removeHighlightAndTooltip() {
         // Remove all highlights

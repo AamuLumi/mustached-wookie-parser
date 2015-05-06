@@ -142,3 +142,7 @@ comment {
   font-size: 1em;
   font-family: 'Inconsolata';
 }
+.identifierTooltip description {
+  font-style: oblique;
+  color: #CCC;
+}
