@@ -55,28 +55,27 @@
             </div>
         </div>
         <div class="doc-function">
-            <div class="prototype" id="myFunction2">
+            <div class="prototype" id="main">
                 <type>int</type>
-                <identifier class="declaration">myFunction2</identifier>(
+                <identifier class="declaration">main</identifier>(
                 <type>int</type>
-                <identifier class="declaration">arg1</identifier>,
-                <type>char*</type>
-                <identifier class="declaration">arg2</identifier>)</div>
+                <identifier class="declaration">argc</identifier>,
+                <type>char**</type>
+                <identifier class="declaration">argv</identifier>)</div>
             <div class="doc-text">
-                Do a comparison between an integer and a string.
-                <br>
+                The main function
             </div>
             <div class="category">Parameters</div>
             <div class="doc-text">
                 <type>int</type>
-                <identifier class="declaration">arg1</identifier> : the integer value
+                <identifier class="declaration">argc</identifier> : number of arguments
                 <br>
-                <type>char*</type>
-                <identifier class="declaration">arg2</identifier> : the string value
+                <type>char**</type>
+                <identifier class="declaration">argv</identifier> : arguments strings values
             </div>
             <div class="category">Return</div>
             <div class="doc-text">
-                true if the test pass
+                0 if program exit normally
             </div>
         </div>
     </div>
