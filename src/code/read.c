@@ -14,6 +14,9 @@ int myFunction(int c)
  plusieurs
  lignes*/
 int main(int argc, char* argv){
+
+	int c = 2;
+	
 	myFunction(c);
 
 	return 0;

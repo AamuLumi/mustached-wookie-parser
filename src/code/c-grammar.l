@@ -21,9 +21,11 @@ SP  (u8|u|U|L)
 ES  (\\(['"\?\\abfnrtv]|[0-7]{1,3}|x[a-fA-F0-9]+)) 
 WS  [ \t\v\n\f]
 
+
 %{
     //'
 #include <stdio.h>
+#include <stdbool.h>
 #include "c-grammar.tab.h"
 
 extern int yyerror(const char *);  /* prints grammar violation message */
@@ -38,12 +40,23 @@ static void analyzeDirective(void);
     
 extern FILE* yyin;
 extern FILE* yyout;
+
+bool codeExpanderInsertedOnLine = false;
+bool noBracketsCondition = true;
+bool onNoBracketsCondition = false;
 %}
 
 %%
-"#"                   { analyzeDirective();}
-"/*"                                    { comment(); }
-"//".*                                    {  fprintf(yyout, "<comment>%s</comment>", yytext);}
+    
+("else"|"if").*"\n" {if (codeExpanderInsertedOnLine){ fprintf(yyout, "%s", "<img class=\"code-expander\" src=\"img/collapse.png\">");} codeExpanderInsertedOnLine = true;onNoBracketsCondition = true;REJECT;} 
+
+         
+"\n"      {fprintf(yyout, "<br>");if (onNoBracketsCondition){onNoBracketsCondition = false;fprintf(yyout, "%s", "</div>");}if (noBracketsCondition){noBracketsCondition = false;onNoBracketsCondition = true;fprintf(yyout, "<div class=\"block\">");}codeExpanderInsertedOnLine = false;}
+
+
+"#"                     { analyzeDirective();}
+"/*"                    { comment(); }
+"//".*                  { fprintf(yyout, "<comment>%s</comment>", yytext);}
 
 "auto"					{ fprintf(yyout, "%s", "<keyword>auto</keyword>");return(AUTO); }
 "break"					{ fprintf(yyout, "%s", "<keyword>break</keyword>");return(BREAK); }
@@ -91,18 +104,19 @@ extern FILE* yyout;
 "_Thread_local"                         { return THREAD_LOCAL; }
 "__func__"                              { return FUNC_NAME; }
 
-{L}{A}*					{ fprintf(yyout, "<identifier>%s</identifier>", yytext);return check_type(); }
+{L}{A}*					    { fprintf(yyout, "<identifier>%s</identifier>", yytext);return check_type(); }
 
 {HP}{H}+{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
 {NZ}{D}*{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
 "0"{O}*{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
-{CP}?"'"([^'\\\n]|{ES})+"'"		{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
+{CP}?"'"([^'\\\n]|{ES})+"'"	{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
+
 
 {D}+{E}{FS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{D}*"."{D}+{E}?{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{D}*"."{D}+{E}?{FS}?		{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
 {D}+"."{E}?{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
 {HP}{H}+{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{HP}{H}*"."{H}+{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}*"."{H}+{P}{FS}?		{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
 {HP}{H}+"."{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
 
 ({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ fprintf(yyout, "<string>%s</string>", yytext); return STRING_LITERAL; }
@@ -117,47 +131,47 @@ extern FILE* yyout;
 "%="					{ fprintf(yyout, "%s", yytext);return MOD_ASSIGN; }
 "&="					{ fprintf(yyout, "%s", yytext);return AND_ASSIGN; }
 "^="					{ fprintf(yyout, "%s", yytext);return XOR_ASSIGN; }
-"|="					{ fprintf(yyout, "%s",yytext);return OR_ASSIGN; }
+"|="					{ fprintf(yyout, "%s", yytext);return OR_ASSIGN; }
 ">>"					{ fprintf(yyout, "%s", "&gt&gt");return RIGHT_OP; }
 "<<"					{ fprintf(yyout, "%s", "&lt&lt");return LEFT_OP; }
 "++"					{ fprintf(yyout, "%s", yytext);return INC_OP; }
 "--"					{ fprintf(yyout, "%s", yytext);return DEC_OP; }
 "->"					{ fprintf(yyout, "%s", "-&gt");return PTR_OP; }
-"&&"					{ fprintf(yyout, "%s",yytext);return AND_OP; }
+"&&"					{ fprintf(yyout, "%s", yytext);return AND_OP; }
 "||"					{ fprintf(yyout, "%s", yytext);return OR_OP; }
 "<="					{ fprintf(yyout, "%s", "&lt=");return LE_OP; }
 ">="					{ fprintf(yyout, "%s", "&gt=");return GE_OP; }
 "=="					{ fprintf(yyout, "%s", yytext);return EQ_OP; }
 "!="					{ fprintf(yyout, "%s", yytext);return NE_OP; }
-";"					{ fprintf(yyout, "%s", yytext);return ';'; }
-("{"|"<%"){WS}*\n         { fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
+";"					    { fprintf(yyout, "%s", yytext);return ';'; }
+("{"|"<%"){WS}*\n       { printf("|%s|\n", yytext);if (codeExpanderInsertedOnLine){printf("%s\n", "tata");fprintf(yyout, "%s", "<img class=\"code-expander\" src=\"img/collapse.png\">");codeExpanderInsertedOnLine = false;}else{codeExpanderInsertedOnLine = true;} noBracketsCondition=false; REJECT;fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
 ("{"|"<%")				{ fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
 ("}"|"%>")				{ fprintf(yyout, "</div>}");return '}'; }
-","					{ fprintf(yyout, "%s", yytext);return ','; }
-":"					{ fprintf(yyout, "%s", yytext);return ':'; }
-"="					{ fprintf(yyout, "%s", yytext);return '='; }
-"("					{ fprintf(yyout, "%s", yytext);return '('; }
-")"					{ fprintf(yyout, "%s", yytext);return ')'; }
+","					    { fprintf(yyout, "%s", yytext);return ','; }
+":"					    { fprintf(yyout, "%s", yytext);return ':'; }
+"="					    { fprintf(yyout, "%s", yytext);return '='; }
+"("					    { fprintf(yyout, "%s", yytext);return '('; }
+")"					    { fprintf(yyout, "%s", yytext);return ')'; }
 ("["|"<:")				{ fprintf(yyout, "%s", yytext);return '['; }
 ("]"|":>")				{ fprintf(yyout, "%s", yytext);return ']'; }
-"."					{ fprintf(yyout, "%s", yytext);return '.'; }
-"&"					{ fprintf(yyout, "%s", yytext);return '&'; }
-"!"					{ fprintf(yyout, "%s", yytext);return '!'; }
-"~"					{ fprintf(yyout, "%s", yytext);return '~'; }
-"-"					{ fprintf(yyout, "%s", yytext);return '-'; }
-"+"					{ fprintf(yyout, "%s", yytext);return '+'; }
-"*"					{ fprintf(yyout, "%s", yytext);return '*'; }
-"/"					{ fprintf(yyout, "%s", yytext);return '/'; }
-"%"					{ fprintf(yyout, "%s", yytext);return '%'; }
-"<"					{ fprintf(yyout, "%s", "&lt;");return '<'; }
-">"					{ fprintf(yyout, "%s", "&gt;");return '>'; }
-"^"					{ fprintf(yyout, "%s", yytext);return '^'; }
-"|"					{ fprintf(yyout, "%s", yytext);return '|'; }
-"?"					{ fprintf(yyout, "%s",yytext);return '?'; }
-"\n"                { fprintf(yyout, "<br>");}
+"."					    { fprintf(yyout, "%s", yytext);return '.'; }
+"&"					    { fprintf(yyout, "%s", yytext);return '&'; }
+"!"					    { fprintf(yyout, "%s", yytext);return '!'; }
+"~"					    { fprintf(yyout, "%s", yytext);return '~'; }
+"-"					    { fprintf(yyout, "%s", yytext);return '-'; }
+"+"					    { fprintf(yyout, "%s", yytext);return '+'; }
+"*"					    { fprintf(yyout, "%s", yytext);return '*'; }
+"/"					    { fprintf(yyout, "%s", yytext);return '/'; }
+"%"					    { fprintf(yyout, "%s", yytext);return '%'; }
+"<"					    { fprintf(yyout, "%s", "&lt;");return '<'; }
+">"					    { fprintf(yyout, "%s", "&gt;");return '>'; }
+"^"					    { fprintf(yyout, "%s", yytext);return '^'; }
+"|"					    { fprintf(yyout, "%s", yytext);return '|'; }
+"?"					    { fprintf(yyout, "%s", yytext);return '?'; }
+
 
 {WS}					{ fprintf(yyout, " ");}
-.					{ /* discard bad characters */ }
+.					    { /* discard bad characters */ }
 
 %%
 
@@ -245,27 +259,35 @@ void createHTMLBeginFile(FILE * fichier)
     fprintf(fichier, "%s\n", "<head>");
     fprintf(fichier, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
     fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
-    fprintf(fichier, "%s\n","<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
-    fprintf(fichier, "%s\n","<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
-    fprintf(fichier, "%s\n","<title>Code Example</title>");
-    fprintf(fichier, "%s\n","</head>");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
+    fprintf(fichier, "%s\n", "<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
+    fprintf(fichier, "%s\n", "<title>Code Example</title>");
+    fprintf(fichier, "%s\n", "</head>");
     fprintf(fichier, "%s\n", "<body>");
-    fprintf(fichier, "%s\n","<div class=\"container\">");
-    fprintf(fichier, "%s\n","<div class=\"page-title\">test.c</div>");
-    fprintf(fichier, "%s\n","<div class=\"mainContent row\">");
-    fprintf(fichier, "%s\n","<div class=\"col-xs-1 lineNumber\"></div>");
-    fprintf(fichier, "%s\n","<div class=\"col-xs-11\">");
-    fprintf(fichier, "%s\n","<div class=\"code-style\">");
-}
+    fprintf(fichier, "%s\n", "<div class=\"page-header\">");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<span class=\"title\">test.c</span>");
+    fprintf(fichier, "%s\n", "<br>");
+    fprintf(fichier, "%s\n", "<span class=\"description\">Code</span>");
+    fprintf(fichier, "%s\n", "<a href=\"./test.c.doc.html\">Go to Documentation</a>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<div class=\"mainContent row\">");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-11\">");
+    fprintf(fichier, "%s\n", "<div class=\"code-style\">");
+
+ }
 
 void createHTMLEndFile(FILE * fichier)
 {
     fprintf(fichier, "%s\n", "</div>");
-    fprintf(fichier, "%s\n","</div>");
-    fprintf(fichier, "%s\n","</div>");
-    fprintf(fichier, "%s\n","</div>");
-    fprintf(fichier, "%s\n","<script src=\"js/documentationScript.js\"></script>");
-    fprintf(fichier, "%s\n","</body>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n",  "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<script src=\"js/codeScript.js\"></script>");
+    fprintf(fichier, "%s\n", "</body>");
 
     fprintf(fichier, "%s\n","</html>");
 }
