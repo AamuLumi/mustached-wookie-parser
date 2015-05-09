@@ -2,7 +2,12 @@
 
 <head>
     <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/documentation.css">
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
@@ -19,10 +24,35 @@
         </div>
     </div>
     <div class="documentation">
+        <div class="part">Summary</div>
+        <div class="doc-summary">
+            <div class="doc-summary-item">
+                <div class="doc-summary-item-title">
+                    <type>int</type>
+                    <identifier class="declaration">myFunction</identifier>(
+                    <type>int</type>
+                    <identifier class="declaration">arg1</identifier>,
+                    <type>char*</type>
+                    <identifier class="declaration">arg2</identifier>)</div>
+                <div class="doc-summary-item-description">Do something</div>
+            </div>
+            <div class="doc-summary-item">
+                <div class="doc-summary-item-title">
+                    <type>int</type>
+                    <identifier class="declaration">main</identifier>(
+                    <type>int</type>
+                    <identifier class="declaration">argc</identifier>,
+                    <type>char**</type>
+                    <identifier class="declaration">argv</identifier>)</div>
+                <div class="doc-summary-item-description">Do something</div>
+            </div>
+        </div>
         <div class="part">Variable Documentation</div>
         <div class="doc-variable">
             <div class="variable-declaration">
-                <type>int</type> <identifier class="declaration">myGlobalVariable</identifier> = <value>42</value>;
+                <type>int</type>
+                <identifier class="declaration">myGlobalVariable</identifier> =
+                <value>42</value>;
             </div>
             <div class="doc-text-variable">
                 This is my variable to stock something
@@ -38,8 +68,18 @@
                 <type>char*</type>
                 <identifier class="declaration">arg2</identifier>)</div>
             <div class="doc-text">
-                Do a comparison between an integer and a string.
-                <br>
+                Do a comparison between an integer and a string.<br>
+                This is my equation : $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$<br>
+                And this is my numbered list with 2 elements :
+                <table>
+                    <tr><td>1.</td><td>My First Element</td></tr>
+                    <tr><td>2.</td><td>My Second Element</td></tr>
+                </table>
+                And my classic list :
+                <table>
+                    <tr><td>-</td><td>My First Element</td></tr>
+                    <tr><td>-</td><td>My Second Element</td></tr>
+                </table>
             </div>
             <div class="category">Parameters</div>
             <div class="doc-text">

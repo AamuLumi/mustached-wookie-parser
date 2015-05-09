@@ -43,42 +43,42 @@ extern FILE* yyout;
 %%
 "#"                   { analyzeDirective();}
 "/*"                                    { comment(); }
-"//".*                                    {  fprintf(yyout, "<comment>%s</comment>", yytext);}
+"//".*                                    {  fprintf(stderr, "<comment>%s</comment>", yytext);}
 
-"auto"					{ fprintf(yyout, "%s", "<keyword>auto</keyword>");return(AUTO); }
-"break"					{ fprintf(yyout, "%s", "<keyword>break</keyword>");return(BREAK); }
-"case"					{ fprintf(yyout, "%s", "<keyword>case</keyword>");return(CASE); }
-"char"					{ fprintf(yyout, "%s", "<type>char</type>");return(CHAR); }
-"const"					{ fprintf(yyout, "%s", "<keyword>const</keyword>");return(CONST); }
-"continue"				{ fprintf(yyout, "%s", "<keyword>continue</keyword>");return(CONTINUE); }
-"default"				{ fprintf(yyout, "%s", "<keyword>default</keyword>");return(DEFAULT); }
-"do"					{ fprintf(yyout, "%s", "<keyword>do</keyword>");return(DO); }
-"double"				{ fprintf(yyout, "%s", "<type>double</type>");return(DOUBLE); }
-"else"					{ fprintf(yyout, "%s", "<keyword>else</keyword>");return(ELSE); }
-"enum"					{ fprintf(yyout, "%s", "<keyword>enum</keyword>");return(ENUM); }
-"extern"				{ fprintf(yyout, "%s", "<keyword>extern</keyword>");return(EXTERN); }
-"float"					{ fprintf(yyout, "%s", "<type>float</type>");return(FLOAT); }
-"for"					{ fprintf(yyout, "%s", "<keyword>for</keyword>");return(FOR); }
-"goto"					{ fprintf(yyout, "%s", "<keyword>goto</keyword>");return(GOTO); }
-"if"					{ fprintf(yyout, "%s", "<keyword>if</keyword>");return(IF); }
-"inline"				{ fprintf(yyout, "%s", "<keyword>inline</keyword>");return(INLINE); }
-"int"					{ fprintf(yyout, "%s", "<type>int</type>");return(INT); }
-"long"					{ fprintf(yyout, "%s", "<type>long</type>");return(LONG); }
-"register"				{ fprintf(yyout, "%s", "<keyword>register</keyword>");return(REGISTER); }
-"restrict"				{ fprintf(yyout, "%s", "<keyword>restrict</keyword>");return(RESTRICT); }
-"return"				{ fprintf(yyout, "%s", "<keyword>return</keyword>");return(RETURN); }
-"short"					{ fprintf(yyout, "%s", "<type>short</type>");return(SHORT); }
-"signed"				{ fprintf(yyout, "%s", "<type>signed</type>");return(SIGNED); }
-"sizeof"				{ fprintf(yyout, "%s", "<keyword>sizeof</keyword>");return(SIZEOF); }
-"static"				{ fprintf(yyout, "%s", "<keyword>static</keyword>");return(STATIC); }
-"struct"				{ fprintf(yyout, "%s", "<keyword>struct</keyword>");return(STRUCT); }
-"switch"				{ fprintf(yyout, "%s", "<keyword>switch</keyword>");return(SWITCH); }
-"typedef"				{ fprintf(yyout, "%s", "<keyword>typedef</keyword>");return(TYPEDEF); }
-"union"					{ fprintf(yyout, "%s", "<keyword>union</keyword>");return(UNION); }
-"unsigned"				{ fprintf(yyout, "%s", "<type>unsigned</type>");return(UNSIGNED); }
-"void"					{ fprintf(yyout, "%s", "<type>void</type>");return(VOID); }
-"volatile"				{ fprintf(yyout, "%s", "<keyword>volatile</keyword>");return(VOLATILE); }
-"while"					{ fprintf(yyout, "%s", "<keyword>while</keyword>");return(WHILE); }
+"auto"					{ fprintf(stderr, "%s", "<keyword>auto</keyword>");return(AUTO); }
+"break"					{ fprintf(stderr, "%s", "<keyword>break</keyword>");return(BREAK); }
+"case"					{ fprintf(stderr, "%s", "<keyword>case</keyword>");return(CASE); }
+"char"					{ fprintf(stderr, "%s", "<type>char</type>");return(CHAR); }
+"const"					{ fprintf(stderr, "%s", "<keyword>const</keyword>");return(CONST); }
+"continue"				{ fprintf(stderr, "%s", "<keyword>continue</keyword>");return(CONTINUE); }
+"default"				{ fprintf(stderr, "%s", "<keyword>default</keyword>");return(DEFAULT); }
+"do"					{ fprintf(stderr, "%s", "<keyword>do</keyword>");return(DO); }
+"double"				{ fprintf(stderr, "%s", "<type>double</type>");return(DOUBLE); }
+"else"					{ fprintf(stderr, "%s", "<keyword>else</keyword>");return(ELSE); }
+"enum"					{ fprintf(stderr, "%s", "<keyword>enum</keyword>");return(ENUM); }
+"extern"				{ fprintf(stderr, "%s", "<keyword>extern</keyword>");return(EXTERN); }
+"float"					{ fprintf(stderr, "%s", "<type>float</type>");return(FLOAT); }
+"for"					{ fprintf(stderr, "%s", "<keyword>for</keyword>");return(FOR); }
+"goto"					{ fprintf(stderr, "%s", "<keyword>goto</keyword>");return(GOTO); }
+"if"					{ fprintf(stderr, "%s", "<keyword>if</keyword>");return(IF); }
+"inline"				{ fprintf(stderr, "%s", "<keyword>inline</keyword>");return(INLINE); }
+"int"					{ fprintf(stderr, "%s", "<type>int</type>");return(INT); }
+"long"					{ fprintf(stderr, "%s", "<type>long</type>");return(LONG); }
+"register"				{ fprintf(stderr, "%s", "<keyword>register</keyword>");return(REGISTER); }
+"restrict"				{ fprintf(stderr, "%s", "<keyword>restrict</keyword>");return(RESTRICT); }
+"return"				{ fprintf(stderr, "%s", "<keyword>return</keyword>");return(RETURN); }
+"short"					{ fprintf(stderr, "%s", "<type>short</type>");return(SHORT); }
+"signed"				{ fprintf(stderr, "%s", "<type>signed</type>");return(SIGNED); }
+"sizeof"				{ fprintf(stderr, "%s", "<keyword>sizeof</keyword>");return(SIZEOF); }
+"static"				{ fprintf(stderr, "%s", "<keyword>static</keyword>");return(STATIC); }
+"struct"				{ fprintf(stderr, "%s", "<keyword>struct</keyword>");return(STRUCT); }
+"switch"				{ fprintf(stderr, "%s", "<keyword>switch</keyword>");return(SWITCH); }
+"typedef"				{ fprintf(stderr, "%s", "<keyword>typedef</keyword>");return(TYPEDEF); }
+"union"					{ fprintf(stderr, "%s", "<keyword>union</keyword>");return(UNION); }
+"unsigned"				{ fprintf(stderr, "%s", "<type>unsigned</type>");return(UNSIGNED); }
+"void"					{ fprintf(stderr, "%s", "<type>void</type>");return(VOID); }
+"volatile"				{ fprintf(stderr, "%s", "<keyword>volatile</keyword>");return(VOLATILE); }
+"while"					{ fprintf(stderr, "%s", "<keyword>while</keyword>");return(WHILE); }
 "_Alignas"                              { return ALIGNAS; }
 "_Alignof"                              { return ALIGNOF; }
 "_Atomic"                               { return ATOMIC; }
@@ -91,72 +91,72 @@ extern FILE* yyout;
 "_Thread_local"                         { return THREAD_LOCAL; }
 "__func__"                              { return FUNC_NAME; }
 
-{L}{A}*					{ fprintf(yyout, "<identifier>%s</identifier>", yytext);return check_type(); }
+{L}{A}*					{ fprintf(stderr, "<identifier>%s</identifier>", yytext);return check_type(); }
 
-{HP}{H}+{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
-{NZ}{D}*{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
-"0"{O}*{IS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
-{CP}?"'"([^'\\\n]|{ES})+"'"		{ fprintf(yyout, "<value>%s</value>", yytext);return I_CONSTANT; }
+{HP}{H}+{IS}?				{ fprintf(stderr, "<value>%s</value>", yytext);return I_CONSTANT; }
+{NZ}{D}*{IS}?				{ fprintf(stderr, "<value>%s</value>", yytext);return I_CONSTANT; }
+"0"{O}*{IS}?				{ fprintf(stderr, "<value>%s</value>", yytext);return I_CONSTANT; }
+{CP}?"'"([^'\\\n]|{ES})+"'"		{ fprintf(stderr, "<value>%s</value>", yytext);return I_CONSTANT; }
 
-{D}+{E}{FS}?				{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{D}*"."{D}+{E}?{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{D}+"."{E}?{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{HP}{H}+{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{HP}{H}*"."{H}+{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
-{HP}{H}+"."{P}{FS}?			{ fprintf(yyout, "<value>%s</value>", yytext);return F_CONSTANT; }
+{D}+{E}{FS}?				{ fprintf(stderr, "<value>%s</value>", yytext);return F_CONSTANT; }
+{D}*"."{D}+{E}?{FS}?			{ fprintf(stderr, "<value>%s</value>", yytext);return F_CONSTANT; }
+{D}+"."{E}?{FS}?			{ fprintf(stderr, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}+{P}{FS}?			{ fprintf(stderr, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}*"."{H}+{P}{FS}?			{ fprintf(stderr, "<value>%s</value>", yytext);return F_CONSTANT; }
+{HP}{H}+"."{P}{FS}?			{ fprintf(stderr, "<value>%s</value>", yytext);return F_CONSTANT; }
 
-({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ fprintf(yyout, "<string>%s</string>", yytext); return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ fprintf(stderr, "<string>%s</string>", yytext); return STRING_LITERAL; }
 
-"..."					{ fprintf(yyout, "%s", yytext);return ELLIPSIS; }
-">>="					{ fprintf(yyout, "%s", "&gt&gt=");return RIGHT_ASSIGN; }
-"<<="					{ fprintf(yyout, "%s", "&lt&lt=");return LEFT_ASSIGN; }
-"+="					{ fprintf(yyout, "%s", yytext);return ADD_ASSIGN; }
-"-="					{ fprintf(yyout, "%s", yytext);return SUB_ASSIGN; }
-"*="					{ fprintf(yyout, "%s", yytext);return MUL_ASSIGN; }
-"/="					{ fprintf(yyout, "%s", yytext);return DIV_ASSIGN; }
-"%="					{ fprintf(yyout, "%s", yytext);return MOD_ASSIGN; }
-"&="					{ fprintf(yyout, "%s", yytext);return AND_ASSIGN; }
-"^="					{ fprintf(yyout, "%s", yytext);return XOR_ASSIGN; }
-"|="					{ fprintf(yyout, "%s",yytext);return OR_ASSIGN; }
-">>"					{ fprintf(yyout, "%s", "&gt&gt");return RIGHT_OP; }
-"<<"					{ fprintf(yyout, "%s", "&lt&lt");return LEFT_OP; }
-"++"					{ fprintf(yyout, "%s", yytext);return INC_OP; }
-"--"					{ fprintf(yyout, "%s", yytext);return DEC_OP; }
-"->"					{ fprintf(yyout, "%s", "-&gt");return PTR_OP; }
-"&&"					{ fprintf(yyout, "%s",yytext);return AND_OP; }
-"||"					{ fprintf(yyout, "%s", yytext);return OR_OP; }
-"<="					{ fprintf(yyout, "%s", "&lt=");return LE_OP; }
-">="					{ fprintf(yyout, "%s", "&gt=");return GE_OP; }
-"=="					{ fprintf(yyout, "%s", yytext);return EQ_OP; }
-"!="					{ fprintf(yyout, "%s", yytext);return NE_OP; }
-";"					{ fprintf(yyout, "%s", yytext);return ';'; }
-("{"|"<%"){WS}*\n         { fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
-("{"|"<%")				{ fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
-("}"|"%>")				{ fprintf(yyout, "</div>}");return '}'; }
-","					{ fprintf(yyout, "%s", yytext);return ','; }
-":"					{ fprintf(yyout, "%s", yytext);return ':'; }
-"="					{ fprintf(yyout, "%s", yytext);return '='; }
-"("					{ fprintf(yyout, "%s", yytext);return '('; }
-")"					{ fprintf(yyout, "%s", yytext);return ')'; }
-("["|"<:")				{ fprintf(yyout, "%s", yytext);return '['; }
-("]"|":>")				{ fprintf(yyout, "%s", yytext);return ']'; }
-"."					{ fprintf(yyout, "%s", yytext);return '.'; }
-"&"					{ fprintf(yyout, "%s", yytext);return '&'; }
-"!"					{ fprintf(yyout, "%s", yytext);return '!'; }
-"~"					{ fprintf(yyout, "%s", yytext);return '~'; }
-"-"					{ fprintf(yyout, "%s", yytext);return '-'; }
-"+"					{ fprintf(yyout, "%s", yytext);return '+'; }
-"*"					{ fprintf(yyout, "%s", yytext);return '*'; }
-"/"					{ fprintf(yyout, "%s", yytext);return '/'; }
-"%"					{ fprintf(yyout, "%s", yytext);return '%'; }
-"<"					{ fprintf(yyout, "%s", "&lt;");return '<'; }
-">"					{ fprintf(yyout, "%s", "&gt;");return '>'; }
-"^"					{ fprintf(yyout, "%s", yytext);return '^'; }
-"|"					{ fprintf(yyout, "%s", yytext);return '|'; }
-"?"					{ fprintf(yyout, "%s",yytext);return '?'; }
-"\n"                { fprintf(yyout, "<br>");}
+"..."					{ fprintf(stderr, "%s", yytext);return ELLIPSIS; }
+">>="					{ fprintf(stderr, "%s", "&gt&gt=");return RIGHT_ASSIGN; }
+"<<="					{ fprintf(stderr, "%s", "&lt&lt=");return LEFT_ASSIGN; }
+"+="					{ fprintf(stderr, "%s", yytext);return ADD_ASSIGN; }
+"-="					{ fprintf(stderr, "%s", yytext);return SUB_ASSIGN; }
+"*="					{ fprintf(stderr, "%s", yytext);return MUL_ASSIGN; }
+"/="					{ fprintf(stderr, "%s", yytext);return DIV_ASSIGN; }
+"%="					{ fprintf(stderr, "%s", yytext);return MOD_ASSIGN; }
+"&="					{ fprintf(stderr, "%s", yytext);return AND_ASSIGN; }
+"^="					{ fprintf(stderr, "%s", yytext);return XOR_ASSIGN; }
+"|="					{ fprintf(stderr, "%s",yytext);return OR_ASSIGN; }
+">>"					{ fprintf(stderr, "%s", "&gt&gt");return RIGHT_OP; }
+"<<"					{ fprintf(stderr, "%s", "&lt&lt");return LEFT_OP; }
+"++"					{ fprintf(stderr, "%s", yytext);return INC_OP; }
+"--"					{ fprintf(stderr, "%s", yytext);return DEC_OP; }
+"->"					{ fprintf(stderr, "%s", "-&gt");return PTR_OP; }
+"&&"					{ fprintf(stderr, "%s",yytext);return AND_OP; }
+"||"					{ fprintf(stderr, "%s", yytext);return OR_OP; }
+"<="					{ fprintf(stderr, "%s", "&lt=");return LE_OP; }
+">="					{ fprintf(stderr, "%s", "&gt=");return GE_OP; }
+"=="					{ fprintf(stderr, "%s", yytext);return EQ_OP; }
+"!="					{ fprintf(stderr, "%s", yytext);return NE_OP; }
+";"					{ fprintf(stderr, "%s", yytext);return ';'; }
+("{"|"<%"){WS}*\n         { fprintf(stderr, "{%s", "<div class=\"block\">");return '{'; }
+("{"|"<%")				{ fprintf(stderr, "{%s", "<div class=\"block\">");return '{'; }
+("}"|"%>")				{ fprintf(stderr, "</div>}");return '}'; }
+","					{ fprintf(stderr, "%s", yytext);return ','; }
+":"					{ fprintf(stderr, "%s", yytext);return ':'; }
+"="					{ fprintf(stderr, "%s", yytext);return '='; }
+"("					{ fprintf(stderr, "%s", yytext);return '('; }
+")"					{ fprintf(stderr, "%s", yytext);return ')'; }
+("["|"<:")				{ fprintf(stderr, "%s", yytext);return '['; }
+("]"|":>")				{ fprintf(stderr, "%s", yytext);return ']'; }
+"."					{ fprintf(stderr, "%s", yytext);return '.'; }
+"&"					{ fprintf(stderr, "%s", yytext);return '&'; }
+"!"					{ fprintf(stderr, "%s", yytext);return '!'; }
+"~"					{ fprintf(stderr, "%s", yytext);return '~'; }
+"-"					{ fprintf(stderr, "%s", yytext);return '-'; }
+"+"					{ fprintf(stderr, "%s", yytext);return '+'; }
+"*"					{ fprintf(stderr, "%s", yytext);return '*'; }
+"/"					{ fprintf(stderr, "%s", yytext);return '/'; }
+"%"					{ fprintf(stderr, "%s", yytext);return '%'; }
+"<"					{ fprintf(stderr, "%s", "&lt;");return '<'; }
+">"					{ fprintf(stderr, "%s", "&gt;");return '>'; }
+"^"					{ fprintf(stderr, "%s", yytext);return '^'; }
+"|"					{ fprintf(stderr, "%s", yytext);return '|'; }
+"?"					{ fprintf(stderr, "%s",yytext);return '?'; }
+"\n"                { fprintf(stderr, "<br>");}
 
-{WS}					{ fprintf(yyout, " ");}
+{WS}					{ fprintf(stderr, " ");}
 .					{ /* discard bad characters */ }
 
 %%
@@ -168,22 +168,22 @@ int yywrap(void)        /* called at end of input */
 
 void analyzeDirective(void)
 {
-    fprintf(yyout, "<directive>#");
+    fprintf(stderr, "<directive>#");
 
     int c;
 
     while ((c = input()) != '\n')
     {
         if (c == '<')
-            fprintf(yyout, "&lt;");
+            fprintf(stderr, "&lt;");
 
         else if (c == '>')
-            fprintf(yyout, "&gt;");
+            fprintf(stderr, "&gt;");
         else
-            fprintf(yyout, "%c", c);
+            fprintf(stderr, "%c", c);
     }
 
-    fprintf(yyout, "</directive><br>");
+    fprintf(stderr, "</directive><br>");
 
 }
 
@@ -196,12 +196,12 @@ static void comment(void)
     {
         if (c == '*')
         {
-            while ((c = input()) == '*')
-                fprintf(yyout, "%c", c);
-
+	while ((c = input()) == '*'){
+	  fprintf(yyout, "%c", c);
+}
             if (c == '/')
             {
-                fprintf(yyout, "*/</comment>");
+                fprintf(yyout, "</comment>");
 
                 return;
             }
