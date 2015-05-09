@@ -98,6 +98,20 @@ comment {
   font-family: 'Aller';
   font-size: 2.5em;
 }
+.documentation .doc-summary {
+  margin: 1.5em 0em;
+  font-family: 'Inconsolata';
+  font-size: 1.2em;
+}
+.documentation .doc-summary .doc-summary-item .doc-summary-item-title {
+  background: #cceeff;
+  font-style: oblique;
+  padding-left: 0.5em;
+}
+.documentation .doc-summary .doc-summary-item .doc-summary-item-description {
+  border: 0.2em solid #cceeff;
+  padding-left: 0.5em;
+}
 .documentation .doc-variable {
   margin: 1.5em 0em;
   font-family: 'Inconsolata';

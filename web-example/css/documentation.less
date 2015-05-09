@@ -6,6 +6,7 @@
 @titleBackgroundColor: #DDD;
 @variableBackgroundColor: #D2DFD2;
 @functionBackgroundColor: #DFE5EE;
+@baseBackgroundColor: #CEF;
 @documentationPrototypeSize: 1.5em;
 @font-face {
     font-family: 'Aller';
@@ -122,6 +123,22 @@ comment {
         font-family: 'Aller';
         font-size: 2.5em;
     }
+    .doc-summary {
+        margin: 1.5em 0em;
+        font-family: 'Inconsolata';
+        font-size: 1.2em;
+        .doc-summary-item {
+            .doc-summary-item-title {
+                background: @baseBackgroundColor;
+                font-style: oblique;
+                padding-left: 0.5em;
+            }
+            .doc-summary-item-description {
+                border: 0.2em solid @baseBackgroundColor;
+                padding-left: 0.5em;
+            }
+        }
+    }
     .doc-variable {
         margin: 1.5em 0em;
         font-family: 'Inconsolata';
@@ -167,11 +184,9 @@ comment {
     color: #fff;
     font-size: 1em;
     font-family: 'Inconsolata';
-    description{
+    description {
         font-style: oblique;
         color: #CCC;
     }
-    return{
-
-    }
+    return {}
 }
