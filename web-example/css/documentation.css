@@ -147,6 +147,13 @@ comment {
   font-size: 1.5em;
   padding-left: 0.5em;
 }
+.documentation table {
+  margin: 0.3em 1.5em;
+}
+.documentation table tr td {
+  padding-bottom: 0.2em;
+  padding-right: 0.4em;
+}
 .identifierTooltip {
   display: none;
   position: absolute;
