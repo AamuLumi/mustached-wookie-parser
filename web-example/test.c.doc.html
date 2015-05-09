@@ -2,7 +2,12 @@
 
 <head>
     <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });
+    </script>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/documentation.css">
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
@@ -45,7 +50,9 @@
         <div class="part">Variable Documentation</div>
         <div class="doc-variable">
             <div class="variable-declaration">
-                <type>int</type> <identifier class="declaration">myGlobalVariable</identifier> = <value>42</value>;
+                <type>int</type>
+                <identifier class="declaration">myGlobalVariable</identifier> =
+                <value>42</value>;
             </div>
             <div class="doc-text-variable">
                 This is my variable to stock something
@@ -61,8 +68,8 @@
                 <type>char*</type>
                 <identifier class="declaration">arg2</identifier>)</div>
             <div class="doc-text">
-                Do a comparison between an integer and a string.
-                <br>
+                Do a comparison between an integer and a string.<br>
+                This is my equation : $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
             </div>
             <div class="category">Parameters</div>
             <div class="doc-text">
