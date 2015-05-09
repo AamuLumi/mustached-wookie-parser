@@ -2270,7 +2270,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 527 "./code/c-grammar.y" /* yacc.c:1906  */
+#line 527 "./c-grammar.y" /* yacc.c:1906  */
 
 #include <stdio.h>
 

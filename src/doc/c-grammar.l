@@ -189,25 +189,25 @@ void analyzeDirective(void)
 
 static void comment(void)
 {
-    fprintf(yyout, "<comment>/*");
+    fprintf(yyout, "Debut d'un pars de comment");
     int c;
 
     while ((c = input()) != 0)
     {
         if (c == '*')
         {
-	while ((c = input()) == '*'){
-	  fprintf(yyout, "%c", c);
-}
-            if (c == '/')
+	   while ( c == '*')
+		 c=input();
+	    	
+	   if ( c == '/')
             {
-                fprintf(yyout, "</comment>");
-
+                fprintf(yyout, "</end>");
                 return;
             }
 
-            if (c == 0)
-                break;
+            if (c==0){
+	        break;
+		}
         }
 
         else if (c == '<')
@@ -217,7 +217,7 @@ static void comment(void)
             fprintf(yyout, "&gt;");
 
         else if (c == '\n')
-            fprintf(yyout, "<br>");
+            fprintf(yyout, "\n");
 
         else
             fprintf(yyout, "%c", c);
@@ -279,11 +279,11 @@ int main(int argc, char* argv[]){
     yyin = fopen(argv[1], "r");
     yyout = fopen(argv[2], "w");
     
-    createHTMLBeginFile(yyout);
+//    createHTMLBeginFile(yyout);
     
     yyparse();
     
-    createHTMLEndFile(yyout);
+  //  createHTMLEndFile(yyout);
     
     fclose(yyin);
     fclose(yyout);
