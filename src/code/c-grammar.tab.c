@@ -2412,44 +2412,55 @@ int yyerror(const char *s)
 	fprintf(stderr, "*** %s\n", s);
 }
 
-void createHTMLBeginFile(FILE * fichier)
+void createHTMLBeginFile(char* filename)
 {
-    fprintf(fichier, "%s\n", "<html>");
+    fprintf(yyout, "%s\n", "<html>");
 
-    fprintf(fichier, "%s\n", "<head>");
-    fprintf(fichier, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
-    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
-    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
-    fprintf(fichier, "%s\n", "<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
-    fprintf(fichier, "%s\n", "<title>Code Example</title>");
-    fprintf(fichier, "%s\n", "</head>");
-    fprintf(fichier, "%s\n", "<body>");
-    fprintf(fichier, "%s\n", "<div class=\"page-header\">");
-    fprintf(fichier, "%s\n", "<div class=\"container\">");
-    fprintf(fichier, "%s\n", "<span class=\"title\">test.c</span>");
-    fprintf(fichier, "%s\n", "<br>");
-    fprintf(fichier, "%s\n", "<span class=\"description\">Code</span>");
-    fprintf(fichier, "%s\n", "<a href=\"./test.c.doc.html\">Go to Documentation</a>");
-    fprintf(fichier, "%s\n", "</div>");
-    fprintf(fichier, "%s\n", "</div>");
-    fprintf(fichier, "%s\n", "<div class=\"container\">");
-    fprintf(fichier, "%s\n", "<div class=\"mainContent row\">");
-    fprintf(fichier, "%s\n", "<div class=\"col-xs-1 lineNumber\"></div>");
-    fprintf(fichier, "%s\n", "<div class=\"col-xs-11\">");
-    fprintf(fichier, "%s\n", "<div class=\"code-style\">");
+    fprintf(yyout, "%s\n", "<head>");
+    fprintf(yyout, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
+    fprintf(yyout, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
+    fprintf(yyout, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
+    fprintf(yyout, "%s\n", "<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
+    fprintf(yyout, "<title>Code - %s</title>\n", filename);
+    fprintf(yyout, "%s\n", "</head>");
+    fprintf(yyout, "%s\n", "<body>");
+    fprintf(yyout, "%s\n", "<div class=\"page-header\">");
+    fprintf(yyout, "%s\n", "<div class=\"container\">");
+    fprintf(yyout, "<span class=\"title\">%s</span>\n", filename);
+    fprintf(yyout, "%s\n", "<br>");
+    fprintf(yyout, "%s\n", "<span class=\"description\">Code</span>");
+    fprintf(yyout, "<a href=\"./%s.doc.html\">Go to Documentation</a>\n", filename);
+    fprintf(yyout, "%s\n", "</div>");
+    fprintf(yyout, "%s\n", "</div>");
+    fprintf(yyout, "%s\n", "<div class=\"container\">");
+    fprintf(yyout, "%s\n", "<div class=\"mainContent row\">");
+    fprintf(yyout, "%s\n", "<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(yyout, "%s\n", "<div class=\"col-xs-11\">");
+    fprintf(yyout, "%s\n", "<div class=\"code-style\">");
 
  }
 
-void createHTMLEndFile(FILE * fichier)
+void createHTMLEndFile()
 {
-    fprintf(fichier, "%s\n", "</div>");
-    fprintf(fichier, "%s\n", "</div>");
-    fprintf(fichier, "%s\n",  "</div>");
-    fprintf(fichier, "%s\n", "</div>");
-    fprintf(fichier, "%s\n", "<script src=\"js/codeScript.js\"></script>");
-    fprintf(fichier, "%s\n", "</body>");
+    fprintf(yyout, "%s\n", "</div>");
+    fprintf(yyout, "%s\n", "</div>");
+    fprintf(yyout, "%s\n",  "</div>");
+    fprintf(yyout, "%s\n", "</div>");
+    fprintf(yyout, "%s\n", "<script src=\"js/codeScript.js\"></script>");
+    fprintf(yyout, "%s\n", "</body>");
 
-    fprintf(fichier, "%s\n","</html>");
+    fprintf(yyout, "%s\n","</html>");
+}
+
+char* getFileName(char* s){
+	char* tmp = s;
+	char* filename = s;
+	for (; *tmp != '\0'; tmp++){
+		if (*tmp == '/')
+			filename = (tmp+1);
+	}
+
+	return filename;
 }
 
 int main(int argc, char* argv[]){
@@ -2457,32 +2468,42 @@ int main(int argc, char* argv[]){
         fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate.html");
         return -1;
     }
-    
+
+    char* filename = getFileName(argv[1]);
+    char resultFileName[200];
+    int i = 0;
+    for (; filename[i] != '\0'; i++)
+    	resultFileName[i] = filename[i];
+    char extension [] = ".code.html";
+    int j = 0;
+    for (; extension[j] != '\0'; i++, j++)
+    	resultFileName[i] = extension[j];
+
     yyin = fopen(argv[1], "r");
-    yyout = fopen("tmp.txt", "w");
+    yyout = fopen("tmp", "w");
     
     fflush(stdout);
-    createHTMLBeginFile(yyout);
+    createHTMLBeginFile(filename);
 
     fflush(stdout);
     yyparse();
     
-    createHTMLEndFile(yyout);
+    createHTMLEndFile();
     
     fclose(yyin);
     fclose(yyout);
 
     fflush(stdout);
-    zzin = fopen("tmp.txt", "r");
-    zzout = fopen("tmp2.txt", "w");
+    zzin = fopen("tmp", "r");
+    zzout = fopen("tmp2", "w");
 
     zzlex();
     
     fclose(zzin);
     fclose(zzout);
 
-    xxin = fopen("tmp2.txt", "r");
-    xxout = fopen(argv[2], "w");
+    xxin = fopen("tmp2", "r");
+    xxout = fopen(resultFileName, "w");
 
     xxlex();
     
