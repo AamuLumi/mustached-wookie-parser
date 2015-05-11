@@ -13,7 +13,8 @@ int myFunction(int c)
  * un commentaire sur
  plusieurs
  lignes*/
-int main(int argc, char* argv){
+int main(int argc, char* argv)
+{
 
 	int c = 2;
 	
