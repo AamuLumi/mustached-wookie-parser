@@ -367,7 +367,7 @@ direct_declarator
 	| direct_declarator '[' type_qualifier_list assignment_expression ']'
 	| direct_declarator '[' type_qualifier_list ']'
 	| direct_declarator '[' assignment_expression ']'
-	| direct_declarator '(' parameter_type_list ')'
+	| direct_declarator '(' {fprintf(yyout, "<declaration>");} parameter_type_list {fprintf(yyout, "</declaration>");} ')'
 	| direct_declarator '(' ')'
 	| direct_declarator '(' identifier_list ')'
 	;
