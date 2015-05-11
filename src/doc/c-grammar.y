@@ -15,6 +15,7 @@
 
 %token	ALIGNAS ALIGNOF ATOMIC GENERIC NORETURN STATIC_ASSERT THREAD_LOCAL
 
+
 %start translation_unit
 %%
 

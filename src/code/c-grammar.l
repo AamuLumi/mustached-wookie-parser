@@ -47,12 +47,6 @@ bool onNoBracketsCondition = false;
 %}
 
 %%
-    
-("else"|"if").*"\n" {if (codeExpanderInsertedOnLine){ fprintf(yyout, "%s", "<img class=\"code-expander\" src=\"img/collapse.png\">");} codeExpanderInsertedOnLine = true;onNoBracketsCondition = true;REJECT;} 
-
-         
-"\n"      {fprintf(yyout, "<br>");if (onNoBracketsCondition){onNoBracketsCondition = false;fprintf(yyout, "%s", "</div>");}if (noBracketsCondition){noBracketsCondition = false;onNoBracketsCondition = true;fprintf(yyout, "<div class=\"block\">");}codeExpanderInsertedOnLine = false;}
-
 
 "#"                     { analyzeDirective();}
 "/*"                    { comment(); }
@@ -143,9 +137,8 @@ bool onNoBracketsCondition = false;
 ">="					{ fprintf(yyout, "%s", "&gt=");return GE_OP; }
 "=="					{ fprintf(yyout, "%s", yytext);return EQ_OP; }
 "!="					{ fprintf(yyout, "%s", yytext);return NE_OP; }
-";"					    { fprintf(yyout, "%s", yytext);return ';'; }
-("{"|"<%"){WS}*\n       { printf("|%s|\n", yytext);if (codeExpanderInsertedOnLine){printf("%s\n", "tata");fprintf(yyout, "%s", "<img class=\"code-expander\" src=\"img/collapse.png\">");codeExpanderInsertedOnLine = false;}else{codeExpanderInsertedOnLine = true;} noBracketsCondition=false; REJECT;fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
-("{"|"<%")				{ fprintf(yyout, "{%s", "<div class=\"block\">");return '{'; }
+";"	                    { fprintf(yyout, "%s", yytext);return ';'; }
+("{"|"<%")			{ fprintf(yyout, "%s{%s", "<img class=\"code-expander\" src=\"img/collapse.png\">", "<div class=\"block\">"); return '{';}
 ("}"|"%>")				{ fprintf(yyout, "</div>}");return '}'; }
 ","					    { fprintf(yyout, "%s", yytext);return ','; }
 ":"					    { fprintf(yyout, "%s", yytext);return ':'; }
@@ -168,6 +161,7 @@ bool onNoBracketsCondition = false;
 "^"					    { fprintf(yyout, "%s", yytext);return '^'; }
 "|"					    { fprintf(yyout, "%s", yytext);return '|'; }
 "?"					    { fprintf(yyout, "%s", yytext);return '?'; }
+"\n"                    { fprintf(yyout, "<br>");}
 
 
 {WS}					{ fprintf(yyout, " ");}
