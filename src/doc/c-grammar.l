@@ -250,12 +250,19 @@ void createHTMLBeginFile(FILE * fichier)
     fprintf(fichier, "%s\n","<title>Code Example</title>");
     fprintf(fichier, "%s\n","</head>");
     fprintf(fichier, "%s\n", "<body>");
-    fprintf(fichier, "%s\n","<div class=\"container\">");
-    fprintf(fichier, "%s\n","<div class=\"page-title\">test.c</div>");
-    fprintf(fichier, "%s\n","<div class=\"mainContent row\">");
-    fprintf(fichier, "%s\n","<div class=\"col-xs-1 lineNumber\"></div>");
-    fprintf(fichier, "%s\n","<div class=\"col-xs-11\">");
-    fprintf(fichier, "%s\n","<div class=\"code-style\">");
+    fprintf(fichier, "%s\n", "<div class=\"page-header\">");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<span class=\"title\">test.c</span>");
+    fprintf(fichier, "%s\n", "<br>");
+    fprintf(fichier, "%s\n", "<span class=\"description\">Code</span>");
+    fprintf(fichier, "%s\n", "<a href=\"./test.c.code.html\">Go to Code</a>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<div class=\"mainContent row\">");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-11\">");
+    fprintf(fichier, "%s\n", "<div class=\"code-style\">");
 }
 
 void createHTMLEndFile(FILE * fichier)
