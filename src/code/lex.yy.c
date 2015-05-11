@@ -1584,7 +1584,7 @@ case 107:
 /* rule 107 can match eol */
 YY_RULE_SETUP
 #line 164 "c-grammar.l"
-{ fprintf(yyout, "<br>");}
+{ fprintf(yyout, "<br>\n");}
 	YY_BREAK
 case 108:
 /* rule 108 can match eol */

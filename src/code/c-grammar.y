@@ -161,17 +161,17 @@ logical_and_expression
 	;
 
 logical_or_expression
-	: logical_and_expression {fprintf(yyout, "AAAAAA\n");}
+	: logical_and_expression
 	| logical_or_expression OR_OP logical_and_expression
 	;
 
 conditional_expression
-	: logical_or_expression
+	: logical_or_expression 
 	| logical_or_expression '?' expression ':' conditional_expression
 	;
 
 assignment_expression
-	: conditional_expression
+	: conditional_expression 
 	| unary_expression assignment_operator assignment_expression
 	;
 
@@ -465,6 +465,14 @@ statement
 	| jump_statement
 	;
 
+statement_no_compound 
+	: labeled_statement
+	| expression_statement
+	| selection_statement
+	| iteration_statement
+	| jump_statement
+	;
+
 labeled_statement
 	: IDENTIFIER ':' statement
 	| CASE constant_expression ':' statement
@@ -491,19 +499,68 @@ expression_statement
 	| expression ';'
 	;
 
+if_expression
+	: IF '(' expression ')' compound_statement
+	| IF '(' expression ')' statement_no_compound  {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+else_expression
+	: ELSE compound_statement
+	| ELSE statement_no_compound  {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+switch_expression
+	: SWITCH '(' expression ')' compound_statement
+	| SWITCH '(' expression ')' statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
+	;
+
 selection_statement
-	: IF '(' expression ')' statement ELSE statement
-	| IF '(' expression ')' statement
-	| SWITCH '(' expression ')' statement
+	: if_expression else_expression
+	| if_expression
+	| switch_expression 
+	;
+
+while_expression
+	: WHILE '(' expression ')' compound_statement
+	| WHILE '(' expression ')' statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+do_no_compound
+	: DO statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+do_while_expression
+	: DO compound_statement WHILE '(' expression ')' ';'
+	| do_no_compound WHILE '(' expression ')' ';' 
+	;
+
+for_ee
+	: FOR '(' expression_statement expression_statement ')' compound_statement
+	| FOR '(' expression_statement expression_statement ')' statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+for_eee	
+	: FOR '(' expression_statement expression_statement expression ')' compound_statement
+	| FOR '(' expression_statement expression_statement expression ')' statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+for_des
+	: FOR '(' declaration expression_statement ')' compound_statement
+	| FOR '(' declaration expression_statement ')' statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
+	;
+
+for_de
+	: FOR '(' declaration expression_statement expression ')' compound_statement
+	| FOR '(' declaration expression_statement expression ')' statement_no_compound {fprintf(yyout, "=<=block-line=<=");}
 	;
 
 iteration_statement
-	: WHILE '(' expression ')' statement
-	| DO statement WHILE '(' expression ')' ';'
-	| FOR '(' expression_statement expression_statement ')' statement
-	| FOR '(' expression_statement expression_statement expression ')' statement
-	| FOR '(' declaration expression_statement ')' statement
-	| FOR '(' declaration expression_statement expression ')' statement
+	: while_expression 
+	| do_while_expression
+	| for_ee
+	| for_eee
+	| for_des
+	| for_de
 	;
 
 jump_statement

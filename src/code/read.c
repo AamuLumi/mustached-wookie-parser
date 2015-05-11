@@ -19,5 +19,9 @@ int main(int argc, char* argv){
 	
 	myFunction(c);
 
+	if (a=0){
+		x=2;
+	}
+
 	return 0;
 }

@@ -161,7 +161,7 @@ bool onNoBracketsCondition = false;
 "^"					    { fprintf(yyout, "%s", yytext);return '^'; }
 "|"					    { fprintf(yyout, "%s", yytext);return '|'; }
 "?"					    { fprintf(yyout, "%s", yytext);return '?'; }
-"\n"                    { fprintf(yyout, "<br>");}
+"\n"                    { fprintf(yyout, "<br>\n");}
 
 
 {WS}					{ fprintf(yyout, " ");}
