@@ -19,7 +19,7 @@ int myFunction(int c)
 int troll(int c)
 	{
 	return 35;
-
+}
 
 /* Coucou, je suis
  * un commentaire sur
