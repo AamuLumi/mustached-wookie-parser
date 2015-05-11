@@ -1,3 +1,13 @@
+%{
+	#include <stdio.h>
+#include <stdbool.h>
+#include "c-grammar.tab.h"
+	extern int yylex();
+extern int yyparse();
+	extern FILE* yyin;
+	extern FILE* yyout;
+%}
+
 %token	IDENTIFIER I_CONSTANT F_CONSTANT STRING_LITERAL FUNC_NAME SIZEOF
 %token	PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
 %token	AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
@@ -151,7 +161,7 @@ logical_and_expression
 	;
 
 logical_or_expression
-	: logical_and_expression
+	: logical_and_expression {fprintf(yyout, "AAAAAA\n");}
 	| logical_or_expression OR_OP logical_and_expression
 	;
 
@@ -230,7 +240,7 @@ type_specifier
 	: VOID
 	| CHAR
 	| SHORT
-	| INT
+	| INT 
 	| LONG
 	| FLOAT
 	| DOUBLE
@@ -531,4 +541,67 @@ int yyerror(const char *s)
 {
 	fflush(stdout);
 	fprintf(stderr, "*** %s\n", s);
+}
+
+void createHTMLBeginFile(FILE * fichier)
+{
+    fprintf(fichier, "%s\n", "<html>");
+
+    fprintf(fichier, "%s\n", "<head>");
+    fprintf(fichier, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
+    fprintf(fichier, "%s\n", "<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
+    fprintf(fichier, "%s\n", "<title>Code Example</title>");
+    fprintf(fichier, "%s\n", "</head>");
+    fprintf(fichier, "%s\n", "<body>");
+    fprintf(fichier, "%s\n", "<div class=\"page-header\">");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<span class=\"title\">test.c</span>");
+    fprintf(fichier, "%s\n", "<br>");
+    fprintf(fichier, "%s\n", "<span class=\"description\">Code</span>");
+    fprintf(fichier, "%s\n", "<a href=\"./test.c.doc.html\">Go to Documentation</a>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<div class=\"mainContent row\">");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-11\">");
+    fprintf(fichier, "%s\n", "<div class=\"code-style\">");
+
+ }
+
+void createHTMLEndFile(FILE * fichier)
+{
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n",  "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<script src=\"js/codeScript.js\"></script>");
+    fprintf(fichier, "%s\n", "</body>");
+
+    fprintf(fichier, "%s\n","</html>");
+}
+
+int main(int argc, char* argv[]){
+    if (argc < 3){
+        fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate.html");
+        return -1;
+    }
+    
+    yyin = fopen(argv[1], "r");
+    yyout = fopen(argv[2], "w");
+
+    fflush(stdout);
+    
+    createHTMLBeginFile(yyout);
+    
+    yyparse();
+    
+    createHTMLEndFile(yyout);
+    
+    fclose(yyin);
+    fclose(yyout);
+    
+    return 0;
 }

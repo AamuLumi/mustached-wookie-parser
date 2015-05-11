@@ -62,8 +62,17 @@
 
 
 /* Copy the first part of user declarations.  */
+#line 1 "c-grammar.y" /* yacc.c:339  */
 
-#line 67 "c-grammar.tab.c" /* yacc.c:339  */
+	#include <stdio.h>
+#include <stdbool.h>
+#include "c-grammar.tab.h"
+	extern int yylex();
+extern int yyparse();
+	extern FILE* yyin;
+	extern FILE* yyout;
+
+#line 76 "c-grammar.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -190,7 +199,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 194 "c-grammar.tab.c" /* yacc.c:358  */
+#line 203 "c-grammar.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -495,34 +504,34 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    22,    22,    23,    24,    25,    26,    30,    31,    32,
-      36,    40,    41,    45,    49,    50,    54,    55,    59,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    72,    73,
-      77,    78,    79,    80,    81,    82,    83,    87,    88,    89,
-      90,    91,    92,    96,    97,   101,   102,   103,   104,   108,
-     109,   110,   114,   115,   116,   120,   121,   122,   123,   124,
-     128,   129,   130,   134,   135,   139,   140,   144,   145,   149,
-     150,   154,   155,   159,   160,   164,   165,   169,   170,   171,
-     172,   173,   174,   175,   176,   177,   178,   179,   183,   184,
-     188,   192,   193,   194,   198,   199,   200,   201,   202,   203,
-     204,   205,   206,   207,   211,   212,   216,   217,   221,   222,
-     223,   224,   225,   226,   230,   231,   232,   233,   234,   235,
-     236,   237,   238,   239,   240,   241,   242,   243,   244,   245,
-     249,   250,   251,   255,   256,   260,   261,   265,   266,   267,
-     271,   272,   273,   274,   278,   279,   283,   284,   285,   289,
-     290,   291,   292,   293,   297,   298,   302,   303,   307,   311,
-     312,   313,   314,   318,   319,   323,   324,   328,   329,   333,
-     334,   335,   336,   337,   338,   339,   340,   341,   342,   343,
-     344,   345,   346,   350,   351,   352,   353,   357,   358,   363,
-     364,   368,   369,   373,   374,   375,   379,   380,   384,   385,
-     389,   390,   391,   395,   396,   397,   398,   399,   400,   401,
-     402,   403,   404,   405,   406,   407,   408,   409,   410,   411,
-     412,   413,   414,   415,   419,   420,   421,   425,   426,   427,
-     428,   432,   436,   437,   441,   442,   446,   450,   451,   452,
-     453,   454,   455,   459,   460,   461,   465,   466,   470,   471,
-     475,   476,   480,   481,   485,   486,   487,   491,   492,   493,
-     494,   495,   496,   500,   501,   502,   503,   504,   508,   509,
-     513,   514,   518,   519,   523,   524
+       0,    32,    32,    33,    34,    35,    36,    40,    41,    42,
+      46,    50,    51,    55,    59,    60,    64,    65,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    82,    83,
+      87,    88,    89,    90,    91,    92,    93,    97,    98,    99,
+     100,   101,   102,   106,   107,   111,   112,   113,   114,   118,
+     119,   120,   124,   125,   126,   130,   131,   132,   133,   134,
+     138,   139,   140,   144,   145,   149,   150,   154,   155,   159,
+     160,   164,   165,   169,   170,   174,   175,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,   188,   189,   193,   194,
+     198,   202,   203,   204,   208,   209,   210,   211,   212,   213,
+     214,   215,   216,   217,   221,   222,   226,   227,   231,   232,
+     233,   234,   235,   236,   240,   241,   242,   243,   244,   245,
+     246,   247,   248,   249,   250,   251,   252,   253,   254,   255,
+     259,   260,   261,   265,   266,   270,   271,   275,   276,   277,
+     281,   282,   283,   284,   288,   289,   293,   294,   295,   299,
+     300,   301,   302,   303,   307,   308,   312,   313,   317,   321,
+     322,   323,   324,   328,   329,   333,   334,   338,   339,   343,
+     344,   345,   346,   347,   348,   349,   350,   351,   352,   353,
+     354,   355,   356,   360,   361,   362,   363,   367,   368,   373,
+     374,   378,   379,   383,   384,   385,   389,   390,   394,   395,
+     399,   400,   401,   405,   406,   407,   408,   409,   410,   411,
+     412,   413,   414,   415,   416,   417,   418,   419,   420,   421,
+     422,   423,   424,   425,   429,   430,   431,   435,   436,   437,
+     438,   442,   446,   447,   451,   452,   456,   460,   461,   462,
+     463,   464,   465,   469,   470,   471,   475,   476,   480,   481,
+     485,   486,   490,   491,   495,   496,   497,   501,   502,   503,
+     504,   505,   506,   510,   511,   512,   513,   514,   518,   519,
+     523,   524,   528,   529,   533,   534
 };
 #endif
 
@@ -2041,8 +2050,14 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
-#line 2046 "c-grammar.tab.c" /* yacc.c:1646  */
+        case 71:
+#line 164 "c-grammar.y" /* yacc.c:1646  */
+    {fprintf(yyout, "AAAAAA\n");}
+#line 2057 "c-grammar.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 2061 "c-grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2270,7 +2285,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 527 "./code/c-grammar.y" /* yacc.c:1906  */
+#line 537 "c-grammar.y" /* yacc.c:1906  */
 
 #include <stdio.h>
 
@@ -2278,4 +2293,67 @@ int yyerror(const char *s)
 {
 	fflush(stdout);
 	fprintf(stderr, "*** %s\n", s);
+}
+
+void createHTMLBeginFile(FILE * fichier)
+{
+    fprintf(fichier, "%s\n", "<html>");
+
+    fprintf(fichier, "%s\n", "<head>");
+    fprintf(fichier, "%s\n", "<script src=\"js/jquery-1.11.2.min.js\"></script>");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">");
+    fprintf(fichier, "%s\n", "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/documentation.css\">");
+    fprintf(fichier, "%s\n", "<meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">");
+    fprintf(fichier, "%s\n", "<title>Code Example</title>");
+    fprintf(fichier, "%s\n", "</head>");
+    fprintf(fichier, "%s\n", "<body>");
+    fprintf(fichier, "%s\n", "<div class=\"page-header\">");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<span class=\"title\">test.c</span>");
+    fprintf(fichier, "%s\n", "<br>");
+    fprintf(fichier, "%s\n", "<span class=\"description\">Code</span>");
+    fprintf(fichier, "%s\n", "<a href=\"./test.c.doc.html\">Go to Documentation</a>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<div class=\"container\">");
+    fprintf(fichier, "%s\n", "<div class=\"mainContent row\">");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-1 lineNumber\"></div>");
+    fprintf(fichier, "%s\n", "<div class=\"col-xs-11\">");
+    fprintf(fichier, "%s\n", "<div class=\"code-style\">");
+
+ }
+
+void createHTMLEndFile(FILE * fichier)
+{
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n",  "</div>");
+    fprintf(fichier, "%s\n", "</div>");
+    fprintf(fichier, "%s\n", "<script src=\"js/codeScript.js\"></script>");
+    fprintf(fichier, "%s\n", "</body>");
+
+    fprintf(fichier, "%s\n","</html>");
+}
+
+int main(int argc, char* argv[]){
+    if (argc < 3){
+        fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate.html");
+        return -1;
+    }
+    
+    yyin = fopen(argv[1], "r");
+    yyout = fopen(argv[2], "w");
+
+    fflush(stdout);
+    
+    createHTMLBeginFile(yyout);
+    
+    yyparse();
+    
+    createHTMLEndFile(yyout);
+    
+    fclose(yyin);
+    fclose(yyout);
+    
+    return 0;
 }
