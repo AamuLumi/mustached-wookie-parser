@@ -189,7 +189,7 @@ void analyzeDirective(void)
 
 static void comment(void)
 {
-    fprintf(yyout, "Debut d'un pars de comment");
+    
     int c;
 
     while ((c = input()) != 0)
@@ -201,7 +201,7 @@ static void comment(void)
 	    	
 	   if ( c == '/')
             {
-                fprintf(yyout, "</end>");
+                fprintf(yyout, "\n#end\n");
                 return;
             }
 
