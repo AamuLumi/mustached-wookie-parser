@@ -2464,21 +2464,33 @@ char* getFileName(char* s){
 }
 
 int main(int argc, char* argv[]){
-    if (argc < 3){
-        fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate.html");
+    if (argc < 2){
+        fprintf(stderr, "Usage : ./parser fileToParse.c");
         return -1;
     }
 
+    // On crée le nom du fichier de sortie à partir du
+    // 	nom du fichier d'entrée
     char* filename = getFileName(argv[1]);
     char resultFileName[200];
+
     int i = 0;
+    // On initialise le buffer
+    for (; i < 200; i++)
+    	resultFileName[i] = '\0';
+
+	i = 0;
     for (; filename[i] != '\0'; i++)
     	resultFileName[i] = filename[i];
+
     char extension [] = ".code.html";
     int j = 0;
     for (; extension[j] != '\0'; i++, j++)
     	resultFileName[i] = extension[j];
 
+    // Premier parseur :
+    //  Parseur principale faisant une analyse grammaticale
+    // 		+ une analyse lexicale (c-grammar.l et c-grammar.y)
     yyin = fopen(argv[1], "r");
     yyout = fopen("tmp", "w");
     
@@ -2493,7 +2505,10 @@ int main(int argc, char* argv[]){
     fclose(yyin);
     fclose(yyout);
 
-    fflush(stdout);
+    // Deuxième parseur :
+    //  Parseur lexicale faisant une analyse du premier fichier
+    //		obtenu ligne par ligne (second-parser.l)
+
     zzin = fopen("tmp", "r");
     zzout = fopen("tmp2", "w");
 
@@ -2501,6 +2516,11 @@ int main(int argc, char* argv[]){
     
     fclose(zzin);
     fclose(zzout);
+
+    // Troisième parseur :
+    //  Parseur lexicale faisant une analyse du second fichier
+    // 		afin d'ajouter toutes les déclarations de variables
+    // 		etc. et de corriger les erreurs
 
     xxin = fopen("tmp2", "r");
     xxout = fopen(resultFileName, "w");
