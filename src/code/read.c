@@ -1,8 +1,7 @@
 #include <stdio.h>
 
 // Je suis un simple commentaire
-int myFunction(int c)
-{
+int myFunction(int c){
 	if (c == 2)
 		return 32;
 	else
@@ -13,8 +12,7 @@ int myFunction(int c)
  * un commentaire sur
  plusieurs
  lignes*/
-int main(int argc, char* argv)
-{
+int main(int argc, char* argv){
 
 	int c = 2;
 	
