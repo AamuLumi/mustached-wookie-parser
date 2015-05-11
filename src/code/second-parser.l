@@ -1,5 +1,6 @@
 %{
 	#include <stdio.h>
+	#include <stdbool.h>
 	#include "c-grammar.tab.h"
 
 	extern FILE* yyin;
@@ -9,19 +10,34 @@
 	void addBlockBeginning();
 	void removeBlockLineTag();
 	void removeBlockBegTag();
+	void removeFunDeclarationTag();
+
+	bool funDeclarationAdded = false;
 %}
 
+L   [a-zA-Z_]
+A   [a-zA-Z_0-9]
+
 %%
+
+.*"=<=fun-declaration=<=".*"\n"	{if (!funDeclarationAdded) 
+									removeFunDeclarationTag();
+								REJECT;}
 
 .*"=<=block-beg=<=<br>\n"	{removeBlockBegTag();}
 
 .*"\n".*"=<=block-line=<=<br>\n"	{addLineExpander(); REJECT;}
 .*"=<=block-line=<=<br>\n"		{addBlockBeginning(); REJECT;}
 .*"=<=block-line=<=<br>\n" 			{removeBlockLineTag();}
-.*\n							fprintf(yyout, "%s", yytext);
-
+.*\n							{fprintf(yyout, "%s", yytext);
+								funDeclarationAdded = false;}
 
 %%
+
+void removeFunDeclarationTag(){
+	fprintf(yyout, "<declaration>");
+	funDeclarationAdded = true;
+}
 
 int beginWith(char* s, char* str){
 	char* tmp = s;
@@ -41,7 +57,9 @@ void removeBlockBegTag(){
 			break;
 		fprintf(yyout, "%c", yytext[i]);
 	}
-	fprintf(yyout, "<div class=\"block\">\n");
+	yytext[i] = '\0';
+	fprintf(yyout, "<br><div class=\"block\">\n");
+	funDeclarationAdded = false;
 }
 
 void removeBlockLineTag(){
@@ -51,7 +69,9 @@ void removeBlockLineTag(){
 			break;
 		fprintf(yyout, "%c", yytext[i]);
 	}
+	yytext[i] = '\0';
 	fprintf(yyout, "<br></div>\n");
+	funDeclarationAdded = false;
 }
 
 void addLineExpander(){

@@ -3,12 +3,17 @@
 	#include <stdbool.h>
 	#include "c-grammar.tab.h"
 
+	extern int xxlex();
+	extern int xxparse();
+
 	extern int yylex();
 	extern int yyparse();
 
 	extern int zzlex();
 	extern int zzparse();
 
+	extern FILE* xxin;
+	extern FILE* xxout;
 	extern FILE* yyin;
 	extern FILE* yyout;
 	extern FILE* zzin;
@@ -346,8 +351,12 @@ declarator
 	| direct_declarator
 	;
 
+identifier_declarator
+	: IDENTIFIER {fprintf(yyout, "=<=identifier-declaration=<=");}
+	;
+
 direct_declarator
-	: IDENTIFIER
+	: identifier_declarator
 	| '(' declarator ')'
 	| direct_declarator '[' ']'
 	| direct_declarator '[' '*' ']'
@@ -592,9 +601,16 @@ external_declaration
 	| declaration
 	;
 
+function_declaration_long
+	: declaration_specifiers declarator declaration_list {fprintf(yyout, "=<=fun-declaration=<=");}
+	;
+
+function_declaration_short
+	: declaration_specifiers declarator {fprintf(yyout, "=<=fun-declaration=<=");}
+
 function_definition
-	: declaration_specifiers declarator declaration_list compound_statement
-	| declaration_specifiers declarator compound_statement
+	: function_declaration_long compound_statement
+	| function_declaration_short compound_statement
 	;
 
 declaration_list
@@ -660,10 +676,9 @@ int main(int argc, char* argv[]){
     yyin = fopen(argv[1], "r");
     yyout = fopen("tmp.txt", "w");
     
-    printf("1");
     fflush(stdout);
     createHTMLBeginFile(yyout);
-    printf("2");
+
     fflush(stdout);
     yyparse();
     
@@ -671,15 +686,23 @@ int main(int argc, char* argv[]){
     
     fclose(yyin);
     fclose(yyout);
-    printf("1");
+
     fflush(stdout);
     zzin = fopen("tmp.txt", "r");
-    zzout = fopen(argv[2], "w");
+    zzout = fopen("tmp2.txt", "w");
 
     zzlex();
     
     fclose(zzin);
     fclose(zzout);
+
+    xxin = fopen("tmp2.txt", "r");
+    xxout = fopen(argv[2], "w");
+
+    xxlex();
+    
+    fclose(xxin);
+    fclose(xxout);
     
     return 0;
 }
