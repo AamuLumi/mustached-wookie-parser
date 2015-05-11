@@ -71,6 +71,12 @@ function addLineNumbers(element) {
 
             // Go to new element
             element = el;
+        } else if ($(this).get(0).tagName === "COMMENT") {
+            // Add number of lines in comment
+            for (var i = numberOfBr($(this)) ; i > 0; i--){
+                element.append(line + "<br>");
+                line++;
+            }
         }
     });
 }
@@ -172,11 +178,11 @@ $(".code-style identifier").hover(
 
         var title = $(this).data('tipText');
 
-        if (title !== "Not found"){
+        if (title !== "Not found") {
             if ($(this).attr('description') != undefined)
-                title +=  '<br><description>' + $(this).attr('description') + '</description>';
+                title += '<br><description>' + $(this).attr('description') + '</description>';
             if ($(this).attr('return') != undefined)
-            title += '<br><return>Return : ' + $(this).attr('return') + '</return>';
+                title += '<br><return>Return : ' + $(this).attr('return') + '</return>';
         }
 
         // Add tooltip to document
