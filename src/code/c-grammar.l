@@ -21,7 +21,6 @@ SP  (u8|u|U|L)
 ES  (\\(['"\?\\abfnrtv]|[0-7]{1,3}|x[a-fA-F0-9]+)) 
 WS  [ \t\v\n\f]
 
-
 %{
     //'
 #include <stdio.h>
@@ -138,7 +137,7 @@ bool onNoBracketsCondition = false;
 "=="					{ fprintf(yyout, "%s", yytext);return EQ_OP; }
 "!="					{ fprintf(yyout, "%s", yytext);return NE_OP; }
 ";"	                    { fprintf(yyout, "%s", yytext);return ';'; }
-("{"|"<%")			{ fprintf(yyout, "%s{%s", "<img class=\"code-expander\" src=\"img/collapse.png\">", "<div class=\"block\">"); return '{';}
+("{"|"<%")			{ fprintf(yyout, "{");return '{';}
 ("}"|"%>")				{ fprintf(yyout, "</div>}");return '}'; }
 ","					    { fprintf(yyout, "%s", yytext);return ','; }
 ":"					    { fprintf(yyout, "%s", yytext);return ':'; }
@@ -246,3 +245,6 @@ static int check_type(void)
     }
 }
 
+void xxparse(){
+    yyparse();
+}

@@ -1,11 +1,18 @@
 %{
 	#include <stdio.h>
-#include <stdbool.h>
-#include "c-grammar.tab.h"
+	#include <stdbool.h>
+	#include "c-grammar.tab.h"
+
 	extern int yylex();
-extern int yyparse();
+	extern int yyparse();
+
+	extern int zzlex();
+	extern int zzparse();
+
 	extern FILE* yyin;
 	extern FILE* yyout;
+	extern FILE* zzin;
+	extern FILE* zzout;
 %}
 
 %token	IDENTIFIER I_CONSTANT F_CONSTANT STRING_LITERAL FUNC_NAME SIZEOF
@@ -256,8 +263,8 @@ type_specifier
 	;
 
 struct_or_union_specifier
-	: struct_or_union '{' struct_declaration_list '}'
-	| struct_or_union IDENTIFIER '{' struct_declaration_list '}'
+	: struct_or_union open_compound struct_declaration_list '}'
+	| struct_or_union IDENTIFIER open_compound struct_declaration_list '}'
 	| struct_or_union IDENTIFIER
 	;
 
@@ -296,10 +303,10 @@ struct_declarator
 	;
 
 enum_specifier
-	: ENUM '{' enumerator_list '}'
-	| ENUM '{' enumerator_list ',' '}'
-	| ENUM IDENTIFIER '{' enumerator_list '}'
-	| ENUM IDENTIFIER '{' enumerator_list ',' '}'
+	: ENUM open_compound enumerator_list '}'
+	| ENUM open_compound enumerator_list ',' '}'
+	| ENUM IDENTIFIER open_compound enumerator_list '}'
+	| ENUM IDENTIFIER open_compound enumerator_list ',' '}'
 	| ENUM IDENTIFIER
 	;
 
@@ -426,8 +433,8 @@ direct_abstract_declarator
 	;
 
 initializer
-	: '{' initializer_list '}'
-	| '{' initializer_list ',' '}'
+	: open_compound initializer_list '}'
+	| open_compound initializer_list ',' '}'
 	| assignment_expression
 	;
 
@@ -479,9 +486,13 @@ labeled_statement
 	| DEFAULT ':' statement
 	;
 
+open_compound
+	: '{' {fprintf(yyout, "=<=block-beg=<=");}
+	;
+
 compound_statement
-	: '{' '}'
-	| '{'  block_item_list '}'
+	: open_compound '}'
+	| open_compound  block_item_list '}'
 	;
 
 block_item_list
@@ -647,18 +658,28 @@ int main(int argc, char* argv[]){
     }
     
     yyin = fopen(argv[1], "r");
-    yyout = fopen(argv[2], "w");
-
+    yyout = fopen("tmp.txt", "w");
+    
+    printf("1");
     fflush(stdout);
-    
     createHTMLBeginFile(yyout);
-    
+    printf("2");
+    fflush(stdout);
     yyparse();
     
     createHTMLEndFile(yyout);
     
     fclose(yyin);
     fclose(yyout);
+    printf("1");
+    fflush(stdout);
+    zzin = fopen("tmp.txt", "r");
+    zzout = fopen(argv[2], "w");
+
+    zzlex();
+    
+    fclose(zzin);
+    fclose(zzout);
     
     return 0;
 }
