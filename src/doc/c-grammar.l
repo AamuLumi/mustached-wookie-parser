@@ -271,13 +271,13 @@ void createHTMLEndFile(FILE * fichier)
 }
 
 int main(int argc, char* argv[]){
-    if (argc < 3){
-        fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate.html");
+    if (argc < 2){
+        fprintf(stderr, "Usage : ./parser fileToAnalyze.c fileToCreate");
         return -1;
     }
     
     yyin = fopen(argv[1], "r");
-    yyout = fopen(argv[2], "w");
+    yyout = fopen("tmpdoc.txt", "w");
     
 //    createHTMLBeginFile(yyout);
     
