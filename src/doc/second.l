@@ -50,25 +50,68 @@ extern FILE* yyout;
 
 void DebutDoc(void){
   char* c;
+  char** fn;
   char** brief;
-  char** name
-  
+  char** name;
+  char** author;
+  char** param;
+  char** date;
+  char** return;
+
+
   while ( (c=input()) != "#"){
     if ( c == "\"){
-      if (c== "b"){ //rief
+      if (c== "b"){     //rief
         while (c != "\n"){
           brief = c;
           brief ++;
         }
+      fprintf(yyout,"%.*s",sizeof(brief),brief);
       }
-      if (c=="n"){//ame
+      if (c=="n"){     //ame
         while ( c != '\n'){
           name =c;
           name ++;
           }
+      fprintf(yyout,"%.*s",sizeof(name),name);
+      }
+      if (c=="f"){     //n 
+        while ( c != '\n'){
+          fn =c;
+          fn ++;
+          }
+      fprintf(yyout,"%.*s",sizeof(fn),fn);
+      }
+      if (c=="a"){     //uthor
+        while ( c != '\n'){
+          author =c;
+          author ++;
+          }
+      fprintf(yyout,"%.*s",sizeof(author),author);
+      }
+      if (c=="p"){     //aram
+        while ( c != '\n'){
+          param =c;
+          param ++;
+          }
+      fprintf(yyout,"%.*s",sizeof(param),param);
+      }
+      if (c=="d"){      //ate
+        while ( c != '\n'){
+          date =c;
+          date ++;
+          }
+      fprintf(yyout,"%.*s",sizeof(date),date);
+      }
+      if (c=="r"){      //eturn
+        while ( c != '\n'){
+          return =c;
+          return ++;
+          }
+      fprintf(yyout,"%.*s",sizeof(return),return);
       }
     }
-  //faire les balises dans le fichier html
+  }
 }
 
 int yywrap(void)        /* called at end of input */
