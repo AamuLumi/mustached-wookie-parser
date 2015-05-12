@@ -23,6 +23,7 @@ A   [a-zA-Z_0-9]
 "(".+"=<=var-declaration=<=" {if (!varDeclarationAdded) addDeclarationTag(); REJECT;}
 
 "<identifier>"{L}{A}*"</identifier>=<=identifier-declaration=<=" {removeIdentifierDeclarationTag();}
+
 "=<=fun-declaration=<="	{fprintf(yyout, "</declaration>");}
 
 "<declaration><img class=\"code-expander\" src=\"img/collapse.png\">" {fprintf(yyout, "<img class=\"code-expander\" src=\"img/collapse.png\"><declaration>");}

@@ -40,9 +40,6 @@ static void analyzeDirective(void);
 extern FILE* yyin;
 extern FILE* yyout;
 
-bool codeExpanderInsertedOnLine = false;
-bool noBracketsCondition = true;
-bool onNoBracketsCondition = false;
 %}
 
 %%

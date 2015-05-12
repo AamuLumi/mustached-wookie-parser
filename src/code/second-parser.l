@@ -10,7 +10,7 @@
 	void addBlockBeginning();
 	void removeBlockLineTag();
 	void removeBlockBegTag();
-	void removeFunDeclarationTag();
+	void addDeclarationToBeginning();
 
 	bool funDeclarationAdded = false;
 %}
@@ -21,20 +21,20 @@ A   [a-zA-Z_0-9]
 %%
 
 .*"=<=fun-declaration=<=".*"\n"	{if (!funDeclarationAdded) 
-									removeFunDeclarationTag();
+									addDeclarationToBeginning();
 								REJECT;}
 
 .*"=<=block-beg=<=<br>\n"	{removeBlockBegTag();}
 
 .*"\n".*"=<=block-line=<=<br>\n"	{addLineExpander(); REJECT;}
-.*"=<=block-line=<=<br>\n"		{addBlockBeginning(); REJECT;}
-.*"=<=block-line=<=<br>\n" 			{removeBlockLineTag();}
+.*"=<=block-line=<=<br>\n"		{addBlockBeginning(); removeBlockLineTag();}
+
 .*\n							{fprintf(yyout, "%s", yytext);
 								funDeclarationAdded = false;}
 
 %%
 
-void removeFunDeclarationTag(){
+void addDeclarationToBeginning(){
 	fprintf(yyout, "<declaration>");
 	funDeclarationAdded = true;
 }
